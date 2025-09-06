@@ -1,0 +1,1023 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HDT EDUCATION SERVICES - Student Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            margin: 0 auto 20px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .profile-role {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .profile-details {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .detail-value {
+            color: #6c757d;
+        }
+
+        .quick-stats {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .content-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            font-size: 24px;
+        }
+
+        .content-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .content-item:hover {
+            background: #f8f9fa;
+            border-color: #667eea;
+        }
+
+        .content-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .content-info {
+            flex: 1;
+        }
+
+        .content-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .content-meta {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .view-all-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .announcements {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .announcement-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .announcement-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .announcement-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .announcement-item.unread {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid #ffd700;
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .announcement-item.unread::before {
+            content: '🔔';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 16px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .announcement-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .announcement-title-text {
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .announcement-priority {
+            font-size: 18px;
+        }
+
+        .announcement-date {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .announcement-text {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .announcement-attachments {
+            margin-top: 10px;
+        }
+
+        .attachment-item {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 4px;
+        }
+
+        .no-announcements {
+            text-align: center;
+            padding: 40px 20px;
+            opacity: 0.8;
+        }
+
+        .notification-badge {
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 10px;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            min-width: 16px;
+            text-align: center;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-sections {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo" title="home of dynamic technologies">🎓 HDT EDUCATION SERVICES</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="QandA.html">Q&A</a></li>
+                <li><a href="sport.html">Sports</a></li>
+                <li><a href="paper.html">Papers</a></li>
+                <li><a href="pvideo.html">Videos</a></li>
+                <li><a href="chat.html">💬 Chat</a></li>
+            </ul>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <span id="userName"></span>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="dashboard-grid">
+            <div class="profile-card">
+                <div class="profile-avatar" id="profileAvatar">🧑‍🎓</div>
+                <div class="profile-name" id="profileName">Loading...</div>
+                <div class="profile-role">Student</div>
+                
+                <div class="profile-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Email:</span>
+                        <span class="detail-value" id="profileEmail">Loading...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Class Level:</span>
+                        <span class="detail-value" id="profileClass">Loading...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Student ID:</span>
+                        <span class="detail-value" id="profileId">Loading...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Join Date:</span>
+                        <span class="detail-value" id="profileJoinDate">Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-stats">
+                <div class="stats-title">📊 My Learning Statistics</div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="questionsAnswered">0</div>
+                        <div class="stat-label">Questions Answered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="videosWatched">0</div>
+                        <div class="stat-label">Videos Watched</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="papersDownloaded">0</div>
+                        <div class="stat-label">Papers Downloaded</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="activeDays">0</div>
+                        <div class="stat-label">Active Days</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-sections">
+            <div class="section-card">
+                <div class="section-title">
+                    <span class="section-icon">❓</span>
+                    Recent Questions & Answers
+                </div>
+                <div id="recentQuestions">
+                    <div class="content-item">
+                        <div class="content-icon">📝</div>
+                        <div class="content-info">
+                            <div class="content-title">Loading questions...</div>
+                            <div class="content-meta">Please wait</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="view-all-btn" onclick="window.location.href='QandA.html'">
+                    View All Questions
+                </button>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">
+                    <span class="section-icon">🎥</span>
+                    Educational Videos
+                </div>
+                <div id="recentVideos">
+                    <div class="content-item">
+                        <div class="content-icon">▶️</div>
+                        <div class="content-info">
+                            <div class="content-title">Loading videos...</div>
+                            <div class="content-meta">Please wait</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="view-all-btn" onclick="window.location.href='pvideo.html'">
+                    View All Videos
+                </button>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">
+                    <span class="section-icon">📄</span>
+                    Exam Papers
+                </div>
+                <div id="recentPapers">
+                    <div class="content-item">
+                        <div class="content-icon">📋</div>
+                        <div class="content-info">
+                            <div class="content-title">Loading papers...</div>
+                            <div class="content-meta">Please wait</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="view-all-btn" onclick="window.location.href='paper.html'">
+                    View All Papers
+                </button>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">
+                    <span class="section-icon">⚽</span>
+                    Sports & Activities
+                </div>
+                <div id="recentSports">
+                    <div class="content-item">
+                        <div class="content-icon">🏆</div>
+                        <div class="content-info">
+                            <div class="content-title">Loading sports...</div>
+                            <div class="content-meta">Please wait</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="view-all-btn" onclick="window.location.href='sport.html'">
+                    View All Sports
+                </button>
+            </div>
+        </div>
+
+        <div class="announcements">
+            <div class="announcement-title">📢 School Announcements</div>
+            <div id="announcementsContainer">
+                <div class="loading" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 24px; margin-bottom: 10px;">⏳</div>
+                    <p>Loading announcements...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" style="position:fixed;bottom:24px;right:24px;z-index:2000;background:#667eea;color:#fff;padding:10px 18px;border-radius:24px;text-decoration:none;font-weight:bold;box-shadow:0 2px 8px rgba(102,126,234,0.2);transition:background 0.2s;">Return Home</a>
+
+    <script>
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkAuthentication();
+            await loadUserProfile();
+            await loadDashboardContent();
+            await loadAnnouncements();
+        });
+
+        async function checkAuthentication() {
+            try {
+                const response = await fetch('/api/users/check-session', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (!response.ok) {
+                    window.location.href = 'ulogin.html';
+                    return;
+                }
+
+                const data = await response.json();
+                currentUser = data.user;
+
+                // Check if user is student
+                if (currentUser.role !== 'student') {
+                    // Redirect to appropriate dashboard
+                    if (currentUser.role === 'teacher') {
+                        window.location.href = 'tprofile.html';
+                    } else if (currentUser.role === 'other') {
+                        window.location.href = 'oprofile.html';
+                    } else {
+                        window.location.href = 'ulogin.html';
+                    }
+                    return;
+                }
+
+            } catch (error) {
+                console.error('Authentication check failed:', error);
+                window.location.href = 'ulogin.html';
+            }
+        }
+
+        async function loadUserProfile() {
+            if (!currentUser) return;
+
+            // Update header with null checking
+            const fullName = currentUser.fullName || 'Student';
+            document.getElementById('userName').textContent = fullName;
+            document.getElementById('userAvatar').textContent = fullName.charAt(0).toUpperCase();
+
+            // Update profile section with null checking
+            document.getElementById('profileName').textContent = fullName;
+            document.getElementById('profileEmail').textContent = currentUser.email || 'No email provided';
+            document.getElementById('profileClass').textContent = currentUser.classLevel || 'Not specified';
+            
+            // Handle student ID with fallback
+            const studentId = currentUser.studentId || (currentUser._id ? currentUser._id.slice(-8).toUpperCase() : 'N/A');
+            document.getElementById('profileId').textContent = studentId;
+            
+            // Handle join date with proper checking
+            if (currentUser.createdAt) {
+                try {
+                    const joinDate = new Date(currentUser.createdAt).toLocaleDateString();
+                    document.getElementById('profileJoinDate').textContent = joinDate;
+                } catch (error) {
+                    document.getElementById('profileJoinDate').textContent = 'Date unavailable';
+                }
+            } else {
+                document.getElementById('profileJoinDate').textContent = 'Date unavailable';
+            }
+
+            // Set profile avatar initial with fallback
+            document.getElementById('profileAvatar').textContent = fullName.charAt(0).toUpperCase();
+        }
+
+        async function loadDashboardContent() {
+            try {
+                // Load recent questions
+                await loadRecentQuestions();
+                
+                // Load recent videos
+                await loadRecentVideos();
+                
+                // Load recent papers
+                await loadRecentPapers();
+                
+                // Load recent sports
+                await loadRecentSports();
+                
+                // Load statistics (mock data for now)
+                loadStatistics();
+
+            } catch (error) {
+                console.error('Failed to load dashboard content:', error);
+            }
+        }
+
+        async function loadRecentQuestions() {
+            try {
+                const response = await fetch('/api/questions?limit=3');
+                const questions = await response.json();
+                
+                const container = document.getElementById('recentQuestions');
+                
+                if (questions.length === 0) {
+                    container.innerHTML = `
+                        <div class="content-item">
+                            <div class="content-icon">❓</div>
+                            <div class="content-info">
+                                <div class="content-title">No questions available</div>
+                                <div class="content-meta">Check back later</div>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = questions.map(question => `
+                    <div class="content-item" onclick="window.location.href='QandA.html'">
+                        <div class="content-icon">📝</div>
+                        <div class="content-info">
+                            <div class="content-title">${question.questionText || question.question || 'Question'}</div>
+                            <div class="content-meta">${question.subject || 'Subject'} • ${question.classLevel || 'All Classes'}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Failed to load questions:', error);
+            }
+        }
+
+        async function loadRecentVideos() {
+            try {
+                const response = await fetch('/api/videos?limit=3');
+                const videos = await response.json();
+                
+                const container = document.getElementById('recentVideos');
+                
+                if (videos.length === 0) {
+                    container.innerHTML = `
+                        <div class="content-item">
+                            <div class="content-icon">🎥</div>
+                            <div class="content-info">
+                                <div class="content-title">No videos available</div>
+                                <div class="content-meta">Check back later</div>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = videos.map(video => `
+                    <div class="content-item" onclick="window.location.href='pvideo.html'">
+                        <div class="content-icon">▶️</div>
+                        <div class="content-info">
+                            <div class="content-title">${video.title || 'Video'}</div>
+                            <div class="content-meta">${video.subject || 'Subject'} • ${video.classLevel || 'All Classes'}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Failed to load videos:', error);
+            }
+        }
+
+        async function loadRecentPapers() {
+            try {
+                const response = await fetch('/api/papers?limit=3');
+                const papers = await response.json();
+                
+                const container = document.getElementById('recentPapers');
+                
+                if (papers.length === 0) {
+                    container.innerHTML = `
+                        <div class="content-item">
+                            <div class="content-icon">📄</div>
+                            <div class="content-info">
+                                <div class="content-title">No papers available</div>
+                                <div class="content-meta">Check back later</div>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = papers.map(paper => `
+                    <div class="content-item" onclick="window.location.href='paper.html'">
+                        <div class="content-icon">📋</div>
+                        <div class="content-info">
+                            <div class="content-title">${paper.title || 'Paper'}</div>
+                            <div class="content-meta">${paper.subject || 'Subject'} • ${paper.examType || 'Exam'}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Failed to load papers:', error);
+            }
+        }
+
+        async function loadRecentSports() {
+            try {
+                const response = await fetch('/api/sports?limit=3');
+                const sports = await response.json();
+                
+                const container = document.getElementById('recentSports');
+                
+                if (sports.length === 0) {
+                    container.innerHTML = `
+                        <div class="content-item">
+                            <div class="content-icon">⚽</div>
+                            <div class="content-info">
+                                <div class="content-title">No sports activities</div>
+                                <div class="content-meta">Check back later</div>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = sports.map(sport => `
+                    <div class="content-item" onclick="window.location.href='sport.html'">
+                        <div class="content-icon">🏆</div>
+                        <div class="content-info">
+                            <div class="content-title">${sport.title || 'Sports Activity'}</div>
+                            <div class="content-meta">${sport.category || 'Sports'} • ${sport.datePosted ? new Date(sport.datePosted).toLocaleDateString() : 'Recent'}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Failed to load sports:', error);
+            }
+        }
+
+        function loadStatistics() {
+            // Mock statistics for demonstration
+            // In a real application, these would come from actual user activity tracking
+            document.getElementById('questionsAnswered').textContent = Math.floor(Math.random() * 50) + 10;
+            document.getElementById('videosWatched').textContent = Math.floor(Math.random() * 30) + 5;
+            document.getElementById('papersDownloaded').textContent = Math.floor(Math.random() * 20) + 3;
+            document.getElementById('activeDays').textContent = Math.floor(Math.random() * 90) + 10;
+        }
+
+        async function loadAnnouncements() {
+            try {
+                const response = await fetch('/api/announcements/student', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                
+                const container = document.getElementById('announcementsContainer');
+                
+                if (!response.ok) {
+                    container.innerHTML = `
+                        <div class="no-announcements">
+                            <div style="font-size: 24px; margin-bottom: 10px;">📢</div>
+                            <p>Failed to load announcements</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const announcements = await response.json();
+                
+                if (announcements.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-announcements">
+                            <div style="font-size: 24px; margin-bottom: 10px;">📢</div>
+                            <p>No announcements at this time</p>
+                            <p style="font-size: 14px; opacity: 0.8;">Check back later for updates</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = announcements.map(announcement => {
+                    const createdDate = announcement.createdAt ? new Date(announcement.createdAt) : new Date();
+                    const timeAgo = getTimeAgo(createdDate);
+                    const unreadClass = !announcement.isRead ? 'unread' : '';
+                    
+                    return `
+                        <div class="announcement-item ${unreadClass}" onclick="markAnnouncementAsRead('${announcement._id || ''}', this)">
+                            <div class="announcement-header">
+                                <div class="announcement-title-text">
+                                    <span class="announcement-priority">${announcement.priorityIcon || '📢'}</span>
+                                    ${announcement.title || 'Announcement'}
+                                </div>
+                                <div class="announcement-date">${timeAgo}</div>
+                            </div>
+                            <div class="announcement-text">${announcement.content || 'No content available'}</div>
+                            ${announcement.attachments && announcement.attachments.length > 0 ? `
+                                <div class="announcement-attachments">
+                                    ${announcement.attachments.map(att => `
+                                        <span class="attachment-item">📎 ${att.fileName || 'Attachment'}</span>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }).join('');
+                
+                // Update announcement notification in header if there are unread announcements
+                const unreadCount = announcements.filter(a => !a.isRead).length;
+                updateAnnouncementNotification(unreadCount);
+                
+            } catch (error) {
+                console.error('Load announcements error:', error);
+                const container = document.getElementById('announcementsContainer');
+                container.innerHTML = `
+                    <div class="no-announcements">
+                        <div style="font-size: 24px; margin-bottom: 10px;">❌</div>
+                        <p>Error loading announcements</p>
+                        <p style="font-size: 14px; opacity: 0.8;">Please refresh the page</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function markAnnouncementAsRead(announcementId, element) {
+            try {
+                if (!announcementId || !element || !element.classList.contains('unread')) return;
+                
+                const response = await fetch(`/api/announcements/${announcementId}/read`, {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    element.classList.remove('unread');
+                    // Update notification count
+                    const currentUnread = document.querySelectorAll('.announcement-item.unread').length;
+                    updateAnnouncementNotification(currentUnread);
+                }
+            } catch (error) {
+                console.error('Mark announcement read error:', error);
+            }
+        }
+
+        function updateAnnouncementNotification(unreadCount) {
+            // Update the announcements title with notification badge
+            const announcementTitle = document.querySelector('.announcement-title');
+            if (announcementTitle) {
+                const existingBadge = announcementTitle.querySelector('.notification-badge');
+                if (existingBadge) {
+                    existingBadge.remove();
+                }
+                
+                if (unreadCount > 0) {
+                    const badge = document.createElement('span');
+                    badge.className = 'notification-badge';
+                    badge.textContent = unreadCount;
+                    badge.style.position = 'relative';
+                    badge.style.marginLeft = '10px';
+                    announcementTitle.appendChild(badge);
+                }
+            }
+        }
+
+        function getTimeAgo(date) {
+            // Handle invalid or undefined dates
+            if (!date || !(date instanceof Date) || isNaN(date.getTime())) {
+                return 'Unknown time';
+            }
+            
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+            
+            if (diffMins < 1) return 'Just now';
+            if (diffMins < 60) return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
+            if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            
+            try {
+                return date.toLocaleDateString();
+            } catch (error) {
+                return 'Unknown date';
+            }
+        }
+
+        async function logout() {
+            try {
+                const response = await fetch('/api/users/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    window.location.href = 'ulogin.html';
+                } else {
+                    console.error('Logout failed');
+                    // Force logout on client side
+                    window.location.href = 'ulogin.html';
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+                // Force logout on client side
+                window.location.href = 'ulogin.html';
+            }
+        }
+    </script>
+    <!-- AI Support JavaScript -->
+    <script src="ai-support.js"></script>
+</body>
+</html>
+

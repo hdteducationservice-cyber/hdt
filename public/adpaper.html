@@ -1,0 +1,780 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HDT EDUCATION SERVICES - Manage Papers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #795548 0%, #8D6E63 100%);
+            color: white;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .action-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-button.active {
+            background: #f8f9fa;
+            border-bottom-color: #795548;
+            color: #795548;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-triple {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #795548;
+            outline: none;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .file-input:hover {
+            border-color: #795548;
+            background: #f8f9fa;
+        }
+
+        .file-input input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #795548 0%, #8D6E63 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #5D4037 0%, #6D4C41 100%);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .papers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .paper-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .paper-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .paper-icon {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #795548 0%, #8D6E63 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+        }
+
+        .paper-info {
+            padding: 20px;
+        }
+
+        .paper-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .paper-details {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .paper-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .update-btn {
+            background: #FF9800;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #F44336;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .filters-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #795548;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .form-row,
+            .form-triple {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .action-tabs {
+                flex-direction: column;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .papers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 Past Papers Management</h1>
+            <a href="admin.html" class="back-btn">← Back to Dashboard</a>
+        </div>
+
+        <div class="main-content">
+            <div class="action-tabs">
+                <button class="tab-button active" onclick="showTab('upload')">Upload Past Paper</button>
+                <button class="tab-button" onclick="showTab('view')">View Uploaded Papers</button>
+            </div>
+
+            <!-- Upload Paper Tab -->
+            <div id="uploadTab" class="tab-content active">
+                <div class="form-section">
+                    <h2>Upload New Past Paper</h2>
+                    <div class="message" id="uploadMessage"></div>
+                    
+                    <form id="uploadPaperForm" enctype="multipart/form-data">
+                        <div class="form-triple">
+                            <div class="form-group">
+                                <label for="classLevel">Class Level *</label>
+                                <select id="classLevel" name="classLevel" required>
+                                    <option value="">Select Class Level</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select Subject</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="year">Year *</label>
+                                <input type="number" id="year" name="year" required min="2000" max="2030" placeholder="e.g., 2023">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="examType">Exam Type</label>
+                                <select id="examType" name="examType">
+                                    <option value="Practice">Practice</option>
+                                    <option value="Mock">Mock</option>
+                                    <option value="NECTA">NECTA</option>
+                                    <option value="School">School</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="paperType">Paper Type</label>
+                                <select id="paperType" name="paperType">
+                                    <option value="Paper 1">Paper 1</option>
+                                    <option value="Paper 2">Paper 2</option>
+                                    <option value="Paper 3">Paper 3</option>
+                                    <option value="Practical">Practical</option>
+                                    <option value="Project">Project</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="paperFile">Paper File *</label>
+                            <div class="file-input">
+                                <input type="file" id="paperFile" name="paperFile" accept=".pdf,.doc,.docx" required>
+                                <span>Click to select paper file (PDF, DOC, DOCX)</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="uploadBtn">Upload Past Paper</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- View Papers Tab -->
+            <div id="viewTab" class="tab-content">
+                <div class="filters-section">
+                    <div class="form-group">
+                        <label for="filterClass">Filter by Class</label>
+                        <select id="filterClass">
+                            <option value="">All Classes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterSubject">Filter by Subject</label>
+                        <select id="filterSubject">
+                            <option value="">All Subjects</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterYear">Filter by Year</label>
+                        <select id="filterYear">
+                            <option value="">All Years</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button onclick="applyFilters()" class="submit-btn">Apply Filters</button>
+                    </div>
+                </div>
+
+                <div class="loading" id="papersLoading">
+                    <div class="spinner"></div>
+                    <p>Loading papers...</p>
+                </div>
+
+                <div id="papersContainer" class="papers-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-auth.js"></script>
+    <script src="teacher-auth.js"></script>
+    <script>
+        // authentication handled by public/admin-auth.js
+        let currentUser = null;
+        // store reference data for selects
+        let classLevels = [];
+        let subjects = [];
+        // Minimal fallback subjects in case the server endpoint fails
+        const fallbackSubjects = ['English Language', 'Basic Mathematics', 'Biology', 'Physics', 'Chemistry'];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const ok = await window.adminAuth.checkAdminOrTeacher(true); // allow teachers
+            if (!ok) return;
+            currentUser = window.currentUser;
+
+            await loadReferenceData();
+            await loadPapers();
+        });
+
+        async function loadReferenceData() {
+            try {
+                const response = await fetch('/api/reference-data');
+                const data = await response.json();
+
+                classLevels = Array.isArray(data.classLevels) && data.classLevels.length ? data.classLevels : [];
+                subjects = Array.isArray(data.subjects) && data.subjects.length ? data.subjects : [];
+
+                // Populate dropdowns (use fallbacks when necessary)
+                populateSelect('classLevel', classLevels);
+                populateSelect('subject', subjects.length ? subjects : fallbackSubjects);
+                populateSelect('filterClass', classLevels);
+                populateSelect('filterSubject', subjects.length ? subjects : fallbackSubjects);
+
+            } catch (error) {
+                console.error('Failed to load reference data:', error);
+                // Use fallbacks so UI still works
+                populateSelect('classLevel', classLevels);
+                populateSelect('subject', fallbackSubjects);
+                populateSelect('filterClass', classLevels);
+                populateSelect('filterSubject', fallbackSubjects);
+            }
+        }
+
+        function populateSelect(selectId, options) {
+            const select = document.getElementById(selectId);
+            if (!select) return;
+
+            // Ensure placeholder option exists
+            let placeholder = select.querySelector('option[value=""]');
+            if (!placeholder) {
+                placeholder = document.createElement('option');
+                placeholder.value = '';
+                placeholder.textContent = select.getAttribute('data-placeholder') || 'Select';
+                select.insertBefore(placeholder, select.firstChild);
+            }
+
+            // Remove existing non-placeholder options
+            select.querySelectorAll('option:not([value=""])').forEach(opt => opt.remove());
+
+            // Use empty array if options not provided
+            options = Array.isArray(options) ? options : [];
+
+            options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option;
+                optionElement.textContent = option;
+                select.appendChild(optionElement);
+            });
+
+            // Reset to placeholder
+            select.value = '';
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'view') {
+                loadPapers();
+            }
+        }
+
+        // Handle paper upload
+        document.getElementById('uploadPaperForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const uploadBtn = document.getElementById('uploadBtn');
+            const message = document.getElementById('uploadMessage');
+            
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = 'Uploading...';
+            message.style.display = 'none';
+
+            try {
+                const formData = new FormData(e.target);
+                
+                const headers = {};
+                const teacherToken = localStorage.getItem('teacherToken');
+                const adminToken = localStorage.getItem('adminToken');
+                if (teacherToken) headers['Authorization'] = `Bearer ${teacherToken}`;
+                else if (adminToken) headers['Authorization'] = `Bearer ${adminToken}`;
+
+                const response = await fetch('/api/papers', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers,
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    message.className = 'message success';
+                    message.textContent = 'Past paper uploaded successfully!';
+                    message.style.display = 'block';
+                    e.target.reset();
+                    
+                    // Reset file input display
+                    document.querySelector('.file-input span').textContent = 'Click to select paper file (PDF, DOC, DOCX)';
+                } else {
+                    message.className = 'message error';
+                    message.textContent = result.error || 'Upload failed';
+                    message.style.display = 'block';
+                }
+
+            } catch (error) {
+                message.className = 'message error';
+                message.textContent = 'Network error. Please try again.';
+                message.style.display = 'block';
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Upload Past Paper';
+            }
+        });
+
+        async function loadPapers() {
+            const papersContainer = document.getElementById('papersContainer');
+            const loading = document.getElementById('papersLoading');
+            
+            loading.style.display = 'block';
+            papersContainer.innerHTML = '';
+
+            try {
+                const response = await fetch('/api/papers');
+                papers = await response.json();
+                
+                // Populate year filter
+                const years = [...new Set(papers.map(paper => paper.year))].sort((a, b) => b - a);
+                populateSelect('filterYear', years);
+                
+                displayPapers(papers);
+                
+            } catch (error) {
+                console.error('Failed to load papers:', error);
+                papersContainer.innerHTML = '<p>Failed to load papers. Please try again.</p>';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function displayPapers(papersToShow) {
+            const papersContainer = document.getElementById('papersContainer');
+            
+            if (papersToShow.length === 0) {
+                papersContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 50px;">No papers found.</p>';
+                return;
+            }
+
+            papersContainer.innerHTML = papersToShow.map(paper => {
+                // Check if current user can update this paper: admin, teacher, or the original uploader
+                const isOwner = currentUser && paper.uploadedBy === currentUser.id;
+                const canUpdate = currentUser && (currentUser.role === 'admin' || currentUser.role === 'teacher' || isOwner);
+                const uploaderName = paper.uploadedByName || 'Unknown';
+                
+                return `
+                <div class="paper-card">
+                    <div class="paper-icon">📄</div>
+                    <div class="paper-info">
+                        <div class="paper-title">${paper.subject} - ${paper.year}</div>
+                        <div class="paper-details">
+                            <strong>Class:</strong> ${paper.classLevel}<br>
+                            <strong>Type:</strong> ${paper.examType} - ${paper.paperType}<br>
+                            <strong>Uploaded by:</strong> ${uploaderName}<br>
+                            <strong>Uploaded:</strong> ${new Date(paper.uploadDate).toLocaleDateString()}<br>
+                            <strong>Downloads:</strong> ${paper.downloads || 0}
+                        </div>
+                        <div class="paper-actions">
+                            <button class="action-btn view-btn" onclick="viewPaper('${paper._id}')">View</button>
+                            ${canUpdate ? `
+                                <button class="action-btn update-btn" onclick="updatePaper('${paper._id}')">Update</button>
+                                <button class="action-btn delete-btn" onclick="deletePaper('${paper._id}')">Delete</button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function applyFilters() {
+            const classFilter = document.getElementById('filterClass').value;
+            const subjectFilter = document.getElementById('filterSubject').value;
+            const yearFilter = document.getElementById('filterYear').value;
+
+            const filteredPapers = papers.filter(paper => {
+                const matchesClass = !classFilter || paper.classLevel === classFilter;
+                const matchesSubject = !subjectFilter || paper.subject === subjectFilter;
+                const matchesYear = !yearFilter || paper.year.toString() === yearFilter;
+                
+                return matchesClass && matchesSubject && matchesYear;
+            });
+
+            displayPapers(filteredPapers);
+        }
+
+        async function viewPaper(paperId) {
+            window.open(`/api/papers/${paperId}/view`, '_blank');
+        }
+
+                async function updatePaper(paperId) {
+                        openUpdatePaperModal(paperId);
+                }
+
+                // Inject update modal for papers
+                (function(){
+                        const modal = `
+                        <div id="updatePaperModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;z-index:9999;">
+                            <div style="background:#fff;padding:20px;border-radius:8px;max-width:600px;margin:0 auto;">
+                                <h2>Update Paper</h2>
+                                <form id="updatePaperForm" enctype="multipart/form-data">
+                                    <input type="hidden" id="updatePaperId" name="id">
+                                    <label>Class Level<select id="uPaperClass" name="classLevel"></select></label>
+                                    <label>Subject<select id="uPaperSubject" name="subject"></select></label>
+                                    <label>Year<input type="number" id="uPaperYear" name="year" min="2000" max="2035"></label>
+                                    <label>Exam Type<select id="uExamType" name="examType"><option>Practice</option><option>Mock</option><option>NECTA</option><option>School</option></select></label>
+                                    <label>Paper Type<select id="uPaperType" name="paperType"><option>Paper 1</option><option>Paper 2</option><option>Paper 3</option><option>Practical</option><option>Project</option></select></label>
+                                    <label>Replace File<input type="file" id="uPaperFile" name="paperFile" accept=".pdf,.doc,.docx"></label>
+                                    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px;"><button type="button" id="cancelUpdPaper" class="submit-btn" style="background:#ccc;color:#000;">Cancel</button><button type="submit" class="submit-btn">Save</button></div>
+                                </form>
+                            </div>
+                        </div>`;
+                        document.body.insertAdjacentHTML('beforeend', modal);
+                        document.getElementById('cancelUpdPaper').addEventListener('click', ()=>{document.getElementById('updatePaperModal').style.display='none'});
+
+                        function populate() {
+                            const cl = document.getElementById('uPaperClass'); const su = document.getElementById('uPaperSubject');
+                            cl.innerHTML = '<option value="">Select Class</option>'; su.innerHTML = '<option value="">Select Subject</option>';
+                            classLevels.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;cl.appendChild(o)});
+                            subjects.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;su.appendChild(o)});
+                        }
+
+                        document.getElementById('updatePaperForm').addEventListener('submit', async (e)=>{
+                            e.preventDefault();
+                            const id = document.getElementById('updatePaperId').value;
+                            const form = new FormData(e.target);
+                            const headers = {}; const t=localStorage.getItem('teacherToken'); const a=localStorage.getItem('adminToken'); if(t) headers['Authorization']=`Bearer ${t}`; else if(a) headers['Authorization']=`Bearer ${a}`;
+                            const btn = e.target.querySelector('button[type="submit"]'); btn.disabled=true;
+                            try{
+                                const res = await fetch(`/api/papers/${id}`,{method:'PUT',credentials:'include',headers,body:form});
+                                const r = await res.json();
+                                if(res.ok){ alert('Paper updated'); document.getElementById('updatePaperModal').style.display='none'; loadPapers(); }
+                                else alert(r.error||'Failed to update');
+                            }catch(err){ alert('Network error'); }
+                            finally{ btn.disabled=false }
+                        });
+
+                        window.openUpdatePaperModal = (id)=>{
+                            populate();
+                            const p = papers.find(x=>x._id===id||x._id==id);
+                            if(!p){ alert('Paper not found'); return; }
+                            document.getElementById('updatePaperId').value = p._id;
+                            document.getElementById('uPaperClass').value = p.classLevel||'';
+                            document.getElementById('uPaperSubject').value = p.subject||'';
+                            document.getElementById('uPaperYear').value = p.year||'';
+                            document.getElementById('uExamType').value = p.examType||'Practice';
+                            document.getElementById('uPaperType').value = p.paperType||'Paper 1';
+                            document.getElementById('updatePaperModal').style.display='flex';
+                        };
+                })();
+
+        async function deletePaper(paperId) {
+            if (!confirm('Are you sure you want to delete this paper?')) {
+                return;
+            }
+
+            try {
+                const headers = {};
+                const teacherToken2 = localStorage.getItem('teacherToken');
+                const adminToken2 = localStorage.getItem('adminToken');
+                if (teacherToken2) headers['Authorization'] = `Bearer ${teacherToken2}`;
+                else if (adminToken2) headers['Authorization'] = `Bearer ${adminToken2}`;
+
+                const response = await fetch(`/api/papers/${paperId}`, {
+                    method: 'DELETE',
+                    credentials: 'include',
+                    headers
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Paper deleted successfully!');
+                    loadPapers(); // Reload papers
+                } else {
+                    alert(result.error || 'Failed to delete paper');
+                }
+
+            } catch (error) {
+                alert('Network error. Please try again.');
+            }
+        }
+    </script>
+    <!-- AI Support JavaScript -->
+    <script src="ai-support.js"></script>
+</body>
+</html>
+
+<!-- reader removed: opens in new tab -->
+

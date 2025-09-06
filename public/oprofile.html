@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HDT EDUCATION SERVICES - Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .welcome-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .welcome-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .welcome-subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            margin: 0 auto 20px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .profile-role {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .profile-details {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .detail-value {
+            color: #6c757d;
+        }
+
+        .activity-overview {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .activity-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .quick-access {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .access-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .access-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .access-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .access-icon {
+            font-size: 24px;
+        }
+
+        .access-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .access-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .access-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .school-updates {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .updates-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .update-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .update-item:hover {
+            background: #f8f9fa;
+            border-color: #667eea;
+        }
+
+        .update-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .update-content {
+            flex: 1;
+        }
+
+        .update-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .update-text {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 5px;
+        }
+
+        .update-date {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .support-section {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .support-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .support-text {
+            font-size: 16px;
+            margin-bottom: 25px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .support-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .support-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .support-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .edit-profile-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .edit-profile-btn:hover {
+            background: #218838;
+            transform: translateY(-1px);
+        }
+
+        /* AI Support Chat Styles */
+        .ai-support-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .ai-support-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); }
+            50% { box-shadow: 0 4px 20px rgba(102, 126, 234, 0.8), 0 0 0 10px rgba(102, 126, 234, 0.1); }
+            100% { box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); }
+        }
+
+        .ai-chat-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1002;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ai-chat-container {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            height: 80vh;
+            max-height: 600px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .ai-chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ai-chat-title {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .ai-status-dot {
+            width: 8px;
+            height: 8px;
+            background: #28a745;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .ai-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .ai-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ai-chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .ai-message {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .ai-message.user {
+            flex-direction: row-reverse;
+        }
+
+        .ai-message.user .ai-message-content {
+            background: #667eea;
+            color: white;
+            border-radius: 18px 18px 5px 18px;
+        }
+
+        .ai-message.ai .ai-message-content {
+            background: white;
+            color: #333;
+            border-radius: 18px 18px 18px 5px;
+            border: 1px solid #e9ecef;
+        }
+
+        .ai-message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .ai-message.user .ai-message-avatar {
+            background: #667eea;
+            color: white;
+        }
+
+        .ai-message.ai .ai-message-avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .ai-message-content {
+            padding: 12px 16px;
+            max-width: 80%;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        .ai-typing {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .ai-typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .ai-typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .ai-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .ai-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        .ai-chat-input-area {
+            padding: 20px;
+            border-top: 1px solid #e9ecef;
+            background: white;
+        }
+
+        .ai-input-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .ai-chat-input {
+            flex: 1;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            padding: 12px 20px;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+            max-height: 80px;
+            min-height: 44px;
+            transition: border-color 0.3s ease;
+        }
+
+        .ai-chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .ai-send-btn {
+            background: #667eea;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .ai-send-btn:hover:not(:disabled) {
+            background: #5a6fd8;
+            transform: scale(1.05);
+        }
+
+        .ai-send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .ai-quick-actions {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .ai-quick-action {
+            background: white;
+            border: 1px solid #667eea;
+            color: #667eea;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .ai-quick-action:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-access {
+                grid-template-columns: 1fr;
+            }
+
+            .activity-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .support-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .ai-chat-container {
+                width: 95%;
+                height: 90vh;
+            }
+
+            .ai-message-content {
+                max-width: 85%;
+            }
+
+            .ai-support-btn {
+                right: 20px;
+                bottom: 20px;
+                width: 55px;
+                height: 55px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo" title="home of dynamic technologies">🎓 HDT EDUCATION SERVICES</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="QandA.html">Q&A</a></li>
+                <li><a href="sport.html">Sports</a></li>
+                <li><a href="paper.html">Papers</a></li>
+                <li><a href="pvideo.html">Videos</a></li>
+                <li><a href="chat.html">💬 Chat</a></li>
+            </ul>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <span id="userName"></span>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="welcome-section">
+            <div class="welcome-icon"><img src="WhatsApp Image 2025-08-08 at 11.41.10_148b0047.jpg" alt="HDT Education Logo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid #667eea; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"></div>
+            <div class="welcome-title">Welcome to Our Educational Community</div>
+            <div class="welcome-subtitle">
+                As a valued member of our school community, you have access to educational resources, 
+                school updates, and ways to support our students' learning journey.
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="profile-card">
+                <div class="profile-avatar" id="profileAvatar">🧑</div>
+                <div class="profile-name" id="profileName">Loading...</div>
+                <div class="profile-role">Community Member</div>
+                
+                <div class="profile-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Name:</span>
+                        <span class="detail-value" id="profileFullName">Loading...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Contact:</span>
+                        <span class="detail-value" id="profileContact">Loading...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Member Since:</span>
+                        <span class="detail-value" id="profileJoinDate">Loading...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Role:</span>
+                        <span class="detail-value">Parent/Sponsor/Guest</span>
+                    </div>
+                </div>
+
+                <button class="edit-profile-btn" onclick="openEditProfile()">
+                    ✏️ Edit Profile
+                </button>
+            </div>
+
+            <div class="activity-overview">
+                <div class="activity-title">📊 Your Activity Overview</div>
+                <div class="activity-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="contentViewed">0</div>
+                        <div class="stat-label">Content Viewed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="resourcesAccessed">0</div>
+                        <div class="stat-label">Resources Accessed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="visitDays">0</div>
+                        <div class="stat-label">Active Days</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="lastVisit">Today</div>
+                        <div class="stat-label">Last Visit</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-access">
+            <div class="access-card" onclick="window.location.href='QandA.html'">
+                <div class="access-title">
+                    <span class="access-icon">❓</span>
+                    Questions & Answers
+                </div>
+                <div class="access-description">
+                    Browse educational questions and answers across all subjects and class levels.
+                </div>
+                <a href="QandA.html" class="access-btn">
+                    Explore Q&A
+                </a>
+            </div>
+
+            <div class="access-card" onclick="window.location.href='pvideo.html'">
+                <div class="access-title">
+                    <span class="access-icon">🎥</span>
+                    Educational Videos
+                </div>
+                <div class="access-description">
+                    Watch educational videos created by our teachers for various subjects.
+                </div>
+                <a href="pvideo.html" class="access-btn">
+                    Watch Videos
+                </a>
+            </div>
+
+            <div class="access-card" onclick="window.location.href='paper.html'">
+                <div class="access-title">
+                    <span class="access-icon">📄</span>
+                    Study Materials
+                </div>
+                <div class="access-description">
+                    Access examination papers, study guides, and educational resources.
+                </div>
+                <a href="paper.html" class="access-btn">
+                    View Materials
+                </a>
+            </div>
+
+            <div class="access-card" onclick="window.location.href='sport.html'">
+                <div class="access-title">
+                    <span class="access-icon">⚽</span>
+                    School Sports
+                </div>
+                <div class="access-description">
+                    Stay updated with school sports events, competitions, and achievements.
+                </div>
+                <a href="sport.html" class="access-btn">
+                    View Sports
+                </a>
+            </div>
+
+            <div class="access-card">
+                <div class="access-title">
+                    <span class="access-icon">📚</span>
+                    School Library
+                </div>
+                <div class="access-description">
+                    Browse our digital library collection and educational books.
+                </div>
+                <button class="access-btn" onclick="alert('Library feature coming soon! 📚')">
+                    Coming Soon
+                </button>
+            </div>
+
+            <div class="access-card">
+                <div class="access-title">
+                    <span class="access-icon">📅</span>
+                    School Calendar
+                </div>
+                <div class="access-description">
+                    View school events, important dates, and academic calendar.
+                </div>
+                <button class="access-btn" onclick="alert('Calendar feature coming soon! 📅')">
+                    Coming Soon
+                </button>
+            </div>
+        </div>
+
+        <div class="school-updates">
+            <div class="updates-title">
+                <span>📢</span>
+                Latest School Updates
+            </div>
+            
+            <div class="update-item">
+                <div class="update-icon">🎓</div>
+                <div class="update-content">
+                    <div class="update-title">New Academic Year Begins</div>
+                    <div class="update-text">Welcome to the new academic year! We're excited to continue providing quality education to our students.</div>
+                    <div class="update-date">Posted today</div>
+                </div>
+            </div>
+
+            <div class="update-item">
+                <div class="update-icon">📚</div>
+                <div class="update-content">
+                    <div class="update-title">Digital Learning Platform Enhanced</div>
+                    <div class="update-text">We've improved our online learning platform with new features including better video streaming and interactive Q&A.</div>
+                    <div class="update-date">Posted 2 days ago</div>
+                </div>
+            </div>
+
+            <div class="update-item">
+                <div class="update-icon">🏆</div>
+                <div class="update-content">
+                    <div class="update-title">Students Excel in National Competitions</div>
+                    <div class="update-text">Our students achieved outstanding results in recent national academic and sports competitions.</div>
+                    <div class="update-date">Posted 1 week ago</div>
+                </div>
+            </div>
+
+            <div class="update-item">
+                <div class="update-icon">🔬</div>
+                <div class="update-content">
+                    <div class="update-title">New Science Laboratory Equipment</div>
+                    <div class="update-text">We've invested in modern laboratory equipment to enhance our science education programs.</div>
+                    <div class="update-date">Posted 2 weeks ago</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="support-section">
+            <div class="support-title">💝 Support Our School</div>
+            <div class="support-text">
+                Your support helps us provide quality education and opportunities for our students. 
+                There are many ways to contribute to our educational community.
+            </div>
+            <div class="support-actions">
+                <a href="#" class="support-btn" onclick="alert('Donation information coming soon! 💰')">
+                    💰 Make a Donation
+                </a>
+                <a href="#" class="support-btn" onclick="alert('Volunteer opportunities coming soon! 🤝')">
+                    🤝 Volunteer Opportunities
+                </a>
+                <a href="#" class="support-btn" onclick="alert('Mentorship program coming soon! 👨‍🏫')">
+                    👨‍🏫 Become a Mentor
+                </a>
+                <a href="#" class="support-btn" onclick="showContactInfo()">
+                    📞 Contact School
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Support Chat -->
+    <button class="ai-support-btn" onclick="toggleAiChat()" title="AI Support - Get instant help!">
+        🤖
+    </button>
+
+    <!-- AI Chat Modal -->
+    <div class="ai-chat-modal" id="aiChatModal">
+        <div class="ai-chat-container">
+            <div class="ai-chat-header">
+                <div>
+                    <div class="ai-chat-title">
+                        🤖 AI Educational Assistant
+                    </div>
+                    <div class="ai-status">
+                        <div class="ai-status-dot"></div>
+                        Online & Ready to Help
+                    </div>
+                </div>
+                <button class="ai-close-btn" onclick="toggleAiChat()">×</button>
+            </div>
+            
+            <div class="ai-chat-messages" id="aiChatMessages">
+                <div class="ai-message ai">
+                    <div class="ai-message-avatar">🤖</div>
+                    <div class="ai-message-content">
+                        Hello! I'm your AI Educational Assistant. I'm here to help you with:
+                        <br>• Academic questions & explanations
+                        <br>• Study guidance & tips  
+                        <br>• Platform navigation
+                        <br>• Technical support
+                        <br><br>What would you like to know?
+                    </div>
+                </div>
+            </div>
+
+            <div class="ai-typing" id="aiTyping">
+                <div class="ai-message-avatar">🤖</div>
+                <div>
+                    <div class="ai-typing-dots">
+                        <div class="ai-typing-dot"></div>
+                        <div class="ai-typing-dot"></div>
+                        <div class="ai-typing-dot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ai-chat-input-area">
+                <div class="ai-quick-actions">
+                    <button class="ai-quick-action" onclick="sendQuickMessage('How do I access my courses?')">📚 Course Access</button>
+                    <button class="ai-quick-action" onclick="sendQuickMessage('Explain this topic')">❓ Explain Topic</button>
+                    <button class="ai-quick-action" onclick="sendQuickMessage('Study tips')">💡 Study Tips</button>
+                    <button class="ai-quick-action" onclick="sendQuickMessage('Technical help')">🔧 Tech Help</button>
+                </div>
+                <div class="ai-input-container">
+                    <textarea 
+                        class="ai-chat-input" 
+                        id="aiChatInput" 
+                        placeholder="Ask me anything about your studies..." 
+                        rows="1"
+                        onkeydown="handleInputKeydown(event)"
+                    ></textarea>
+                    <button class="ai-send-btn" id="aiSendBtn" onclick="sendMessage()">
+                        ➤
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" style="position:fixed;bottom:24px;right:24px;z-index:2000;background:#667eea;color:#fff;padding:10px 18px;border-radius:24px;text-decoration:none;font-weight:bold;box-shadow:0 2px 8px rgba(102,126,234,0.2);transition:background 0.2s;">Return Home</a>
+
+    <script>
+        let currentUser = null;
+        let aiChatSession = {
+            isOpen: false,
+            messages: [],
+            sessionId: null
+        };
+
+        // AI Chat Functionality
+        function toggleAiChat() {
+            const modal = document.getElementById('aiChatModal');
+            aiChatSession.isOpen = !aiChatSession.isOpen;
+            
+            if (aiChatSession.isOpen) {
+                modal.style.display = 'flex';
+                document.getElementById('aiChatInput').focus();
+                if (!aiChatSession.sessionId) {
+                    initializeAiSession();
+                }
+            } else {
+                modal.style.display = 'none';
+            }
+        }
+
+        function initializeAiSession() {
+            aiChatSession.sessionId = 'session_' + Date.now();
+            // Initialize with welcome message if not already done
+            console.log('AI Chat session initialized:', aiChatSession.sessionId);
+        }
+
+        function sendQuickMessage(message) {
+            document.getElementById('aiChatInput').value = message;
+            sendMessage();
+        }
+
+        function handleInputKeydown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('aiChatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Add user message to chat
+            addMessageToChat('user', message);
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate AI processing and response
+            try {
+                const response = await getAiResponse(message);
+                hideTypingIndicator();
+                addMessageToChat('ai', response);
+            } catch (error) {
+                hideTypingIndicator();
+                addMessageToChat('ai', 'I apologize, but I\'m having trouble processing your request right now. Please try again or contact technical support if the issue persists.');
+            }
+        }
+
+        function addMessageToChat(sender, message) {
+            const messagesContainer = document.getElementById('aiChatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `ai-message ${sender}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'ai-message-avatar';
+            avatar.textContent = sender === 'user' ? '👤' : '🤖';
+            
+            const content = document.createElement('div');
+            content.className = 'ai-message-content';
+            content.innerHTML = message.replace(/\n/g, '<br>');
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+            messagesContainer.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Store message in session
+            aiChatSession.messages.push({ sender, message, timestamp: Date.now() });
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('aiTyping').style.display = 'flex';
+            const messagesContainer = document.getElementById('aiChatMessages');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('aiTyping').style.display = 'none';
+        }
+
+        async function getAiResponse(userMessage) {
+            // Simulate processing delay
+            await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 2000));
+            
+            // Educational AI responses based on keywords
+            const lowerMessage = userMessage.toLowerCase();
+            
+            if (lowerMessage.includes('course') || lowerMessage.includes('access')) {
+                return `To access your courses:\n\n1. Navigate to the main dashboard\n2. Click on the subject/course cards\n3. Browse available materials including videos, papers, and Q&A\n\nYou can access:\n• 📚 Study Materials (Papers)\n• 🎥 Educational Videos\n• ❓ Q&A Section\n• ⚽ Sports Updates\n\nNeed help with a specific subject? Just ask!`;
+            }
+            
+            if (lowerMessage.includes('study') || lowerMessage.includes('tip')) {
+                return `Here are some effective study tips:\n\n📚 **Study Strategies:**\n• Create a consistent study schedule\n• Break large topics into smaller chunks\n• Use active recall and practice testing\n• Join study groups or discussions\n\n🧠 **Memory Techniques:**\n• Use visual aids and diagrams\n• Create flashcards for key concepts\n• Teach concepts to others\n• Take regular breaks (Pomodoro technique)\n\n💡 **Platform Tips:**\n• Use our Q&A section for difficult questions\n• Watch educational videos for visual learning\n• Download study materials for offline access\n\nWhat specific subject would you like study tips for?`;
+            }
+            
+            if (lowerMessage.includes('math') || lowerMessage.includes('mathematics')) {
+                return `I'd be happy to help with mathematics! 🧮\n\n**Available Math Resources:**\n• Practice problems in our Q&A section\n• Step-by-step solution videos\n• Past examination papers\n• Interactive problem-solving sessions\n\n**Math Study Tips:**\n• Practice daily, even if just 15-20 minutes\n• Work through problems step-by-step\n• Don't just memorize formulas - understand concepts\n• Use visual representations when possible\n\n**Need help with specific math topics like:**\n• Algebra & Equations\n• Geometry & Trigonometry\n• Calculus & Advanced Topics\n• Statistics & Probability\n\nJust ask about any specific problem or topic!`;
+            }
+            
+            if (lowerMessage.includes('science') || lowerMessage.includes('physics') || lowerMessage.includes('chemistry') || lowerMessage.includes('biology')) {
+                return `Science learning made easier! 🔬\n\n**Science Resources Available:**\n• Laboratory experiment videos\n• Detailed explanations of scientific concepts\n• Practice questions with solutions\n• Real-world application examples\n\n**Science Study Approach:**\n• Connect theory with practical examples\n• Use diagrams and visual models\n• Practice problem-solving regularly\n• Relate concepts to everyday life\n\n**Subject Areas:**\n• 🧪 Chemistry - Reactions, compounds, equations\n• ⚛️ Physics - Motion, energy, forces\n• 🧬 Biology - Life processes, ecosystems, genetics\n\nWhat specific science topic interests you?`;
+            }
+            
+            if (lowerMessage.includes('exam') || lowerMessage.includes('test')) {
+                return `Exam preparation strategies! 📝\n\n**Exam Prep Resources:**\n• Past papers with marking schemes\n• Timed practice tests\n• Revision summaries\n• Key topic highlights\n\n**Effective Exam Strategies:**\n• Start revision early (not last minute!)\n• Create a revision timetable\n• Practice under timed conditions\n• Focus on understanding, not just memorizing\n• Get enough sleep before exams\n\n**During the Exam:**\n• Read all instructions carefully\n• Plan your time for each section\n• Start with questions you know well\n• Review your answers if time permits\n\n**Access Practice Materials:**\nCheck our Papers section for past exams and practice questions!\n\nNeed specific exam tips for particular subjects?`;
+            }
+            
+            if (lowerMessage.includes('technical') || lowerMessage.includes('help') || lowerMessage.includes('problem')) {
+                return `Technical Support 🔧\n\n**Common Solutions:**\n• **Videos not playing?** Try refreshing the page or check your internet connection\n• **Can't download files?** Make sure pop-ups are allowed for this site\n• **Login issues?** Clear browser cookies and try again\n• **Slow loading?** Try using a different browser or device\n\n**Platform Features:**\n• Works best on modern browsers (Chrome, Firefox, Safari)\n• Mobile-friendly responsive design\n• Download materials for offline study\n• Real-time chat and discussions\n\n**Need More Help?**\nIf the issue persists:\n1. Take a screenshot of any error messages\n2. Contact our technical support team\n3. Try accessing from a different device\n\nDescribe your specific technical issue and I'll provide targeted help!`;
+            }
+            
+            if (lowerMessage.includes('teacher') || lowerMessage.includes('contact')) {
+                return `Connect with Teachers & Support 👨‍🏫\n\n**Ways to Get Help:**\n• Use the Q&A section to ask academic questions\n• Join live chat sessions during office hours\n• Access teacher-created video explanations\n• Participate in group discussions\n\n**Contact Information:**\n📧 Email: info@hdteducation.ac.tz\n📱 Phone: +255 123 456 789\n🕐 Office Hours: Mon-Fri 8:00 AM - 5:00 PM\n\n**Academic Support:**\n• Subject-specific teacher consultations\n• Study group coordination\n• Assignment guidance\n• Career counseling\n\nWould you like me to help you with a specific academic question?`;
+            }
+            
+            // Default helpful response
+            return `I'm here to help with your educational journey! 🎓\n\n**I can assist you with:**\n• 📚 Study tips and learning strategies\n• 🔍 Platform navigation and features\n• 📖 Subject-specific questions\n• 🛠️ Technical support\n• 📞 Contact information\n\n**Popular topics:**\n• Mathematics problem-solving\n• Science concept explanations  \n• Exam preparation strategies\n• Course access and materials\n\n**Quick Actions:**\nTry asking about specific subjects like "help with mathematics" or "biology study tips"\n\nWhat would you like to explore today?`;
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkAuthentication();
+            await loadUserProfile();
+            loadActivityStats();
+        });
+
+        async function checkAuthentication() {
+            try {
+                const response = await fetch('/api/users/check-session', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (!response.ok) {
+                    window.location.href = 'ulogin.html';
+                    return;
+                }
+
+                const data = await response.json();
+                currentUser = data.user;
+
+                // Check if user is 'other' role
+                if (currentUser.role !== 'other') {
+                    // Redirect to appropriate dashboard
+                    if (currentUser.role === 'student') {
+                        window.location.href = 'sprofile.html';
+                    } else if (currentUser.role === 'teacher') {
+                        window.location.href = 'tprofile.html';
+                    } else {
+                        window.location.href = 'ulogin.html';
+                    }
+                    return;
+                }
+
+            } catch (error) {
+                console.error('Authentication check failed:', error);
+                window.location.href = 'ulogin.html';
+            }
+        }
+
+        async function loadUserProfile() {
+            if (!currentUser) return;
+
+            // Update header
+            document.getElementById('userName').textContent = currentUser.fullName;
+            document.getElementById('userAvatar').textContent = currentUser.fullName.charAt(0).toUpperCase();
+
+            // Update profile section
+            document.getElementById('profileName').textContent = currentUser.fullName;
+            document.getElementById('profileFullName').textContent = currentUser.fullName;
+            document.getElementById('profileAvatar').textContent = currentUser.fullName.charAt(0).toUpperCase();
+            
+            // Display contact information
+            let contactInfo = '';
+            if (currentUser.email) {
+                contactInfo = currentUser.email;
+            } else if (currentUser.phoneNumber) {
+                contactInfo = currentUser.phoneNumber;
+            } else {
+                contactInfo = 'Not provided';
+            }
+            document.getElementById('profileContact').textContent = contactInfo;
+            
+            // Join date
+            if (currentUser.createdAt) {
+                const joinDate = new Date(currentUser.createdAt).toLocaleDateString();
+                document.getElementById('profileJoinDate').textContent = joinDate;
+            } else {
+                document.getElementById('profileJoinDate').textContent = 'Recently';
+            }
+        }
+
+        function loadActivityStats() {
+            // Mock activity statistics for demonstration
+            // In a real application, these would come from actual user activity tracking
+            document.getElementById('contentViewed').textContent = Math.floor(Math.random() * 50) + 5;
+            document.getElementById('resourcesAccessed').textContent = Math.floor(Math.random() * 20) + 2;
+            
+            if (currentUser && currentUser.createdAt) {
+                const joinDate = new Date(currentUser.createdAt);
+                const today = new Date();
+                const daysDiff = Math.floor((today - joinDate) / (1000 * 60 * 60 * 24));
+                document.getElementById('visitDays').textContent = Math.min(daysDiff, Math.floor(Math.random() * daysDiff) + 1);
+            } else {
+                document.getElementById('visitDays').textContent = '1';
+            }
+            
+            // Set last visit to today for simplicity
+            document.getElementById('lastVisit').textContent = 'Today';
+        }
+
+        function openEditProfile() {
+            // In a real application, this would open a profile editing modal or page
+            alert('Profile editing feature coming soon! 👤✏️\n\nYou can update your contact information and preferences.');
+        }
+
+        function showContactInfo() {
+            alert(`📞 Contact HDT EDUCATION SERVICES\n\n` +
+                  `📧 Email: info@hdteducation.ac.tz\n` +
+                  `📱 Phone: +255 123 456 789\n` +
+                  `📍 Address: HDT EDUCATION SERVICES Campus\n` +
+                  `🕐 Office Hours: Mon-Fri 8:00 AM - 5:00 PM\n\n` +
+                  `Feel free to reach out for any questions or support!`);
+        }
+
+        async function logout() {
+            try {
+                const response = await fetch('/api/users/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    window.location.href = 'ulogin.html';
+                } else {
+                    console.error('Logout failed');
+                    window.location.href = 'ulogin.html';
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+                window.location.href = 'ulogin.html';
+            }
+        }
+    </script>
+</body>
+</html>

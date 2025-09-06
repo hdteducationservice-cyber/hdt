@@ -1,0 +1,713 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HDT EDUCATION SERVICES - Manage Sports</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+            color: white;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .action-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-button.active {
+            background: #f8f9fa;
+            border-bottom-color: #4CAF50;
+            color: #4CAF50;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .file-input:hover {
+            border-color: #4CAF50;
+            background: #f8f9fa;
+        }
+
+        .file-input input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #388E3C 0%, #689F38 100%);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .sports-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .sports-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .media-container {
+            width: 100%;
+            height: 200px;
+            background: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .media-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sports-info {
+            padding: 20px;
+        }
+
+        .sports-description {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .sports-details {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .sports-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .update-btn {
+            background: #FF9800;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #F44336;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .filters-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .action-tabs {
+                flex-direction: column;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .sports-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏅 Sports & Games Management</h1>
+            <a href="admin.html" class="back-btn">← Back to Dashboard</a>
+        </div>
+
+        <div class="main-content">
+            <div class="action-tabs">
+                <button class="tab-button active" onclick="showTab('upload')">Upload Media</button>
+                <button class="tab-button" onclick="showTab('view')">View Uploaded Media</button>
+            </div>
+
+            <!-- Upload Media Tab -->
+            <div id="uploadTab" class="tab-content active">
+                <div class="form-section">
+                    <h2>Upload Sports & Games Media</h2>
+                    <div class="message" id="uploadMessage"></div>
+                    
+                    <form id="uploadSportsForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="description">Description *</label>
+                            <textarea id="description" name="description" rows="3" required placeholder="Describe the sports activity, event, or achievement"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="category">Sports Category</label>
+                                <select id="category" name="category">
+                                    <option value="Football">Football</option>
+                                    <option value="Basketball">Basketball</option>
+                                    <option value="Volleyball">Volleyball</option>
+                                    <option value="Athletics">Athletics</option>
+                                    <option value="Swimming">Swimming</option>
+                                    <option value="Tennis">Tennis</option>
+                                    <option value="Netball">Netball</option>
+                                    <option value="Traditional Games">Traditional Games</option>
+                                    <option value="Other" selected>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDate">Event Date</label>
+                                <input type="date" id="eventDate" name="eventDate">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" placeholder="Event location (optional)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sportsMedia">Media File *</label>
+                            <div class="file-input">
+                                <input type="file" id="sportsMedia" name="sportsMedia" accept="image/*,video/*" required>
+                                <span>Click to select image or video file</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="uploadBtn">Upload Media</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- View Media Tab -->
+            <div id="viewTab" class="tab-content">
+                <div class="filters-section">
+                    <div class="form-group">
+                        <label for="filterCategory">Filter by Category</label>
+                        <select id="filterCategory">
+                            <option value="">All Categories</option>
+                            <option value="Football">Football</option>
+                            <option value="Basketball">Basketball</option>
+                            <option value="Volleyball">Volleyball</option>
+                            <option value="Athletics">Athletics</option>
+                            <option value="Swimming">Swimming</option>
+                            <option value="Tennis">Tennis</option>
+                            <option value="Netball">Netball</option>
+                            <option value="Traditional Games">Traditional Games</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterMediaType">Filter by Type</label>
+                        <select id="filterMediaType">
+                            <option value="">All Types</option>
+                            <option value="image">Images</option>
+                            <option value="video">Videos</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button onclick="applyFilters()" class="submit-btn">Apply Filters</button>
+                    </div>
+                </div>
+
+                <div class="loading" id="sportsLoading">
+                    <div class="spinner"></div>
+                    <p>Loading sports media...</p>
+                </div>
+
+                <div id="sportsContainer" class="sports-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-auth.js"></script>
+    <script src="teacher-auth.js"></script>
+    <script>
+        let currentUser = null;
+
+        let sportsMedia = [];
+
+        // Load sports media on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const ok = await window.adminAuth.checkAdminOrTeacher(true); // allow teachers
+            if (!ok) return;
+            currentUser = window.currentUser;
+
+            await loadSportsMedia();
+            setupFileHandler();
+        });
+
+        function setupFileHandler() {
+            // Handle file input display
+            document.querySelector('.file-input input[type="file"]').addEventListener('change', function() {
+                const span = this.parentElement.querySelector('span');
+                if (this.files.length > 0) {
+                    span.textContent = this.files[0].name;
+                }
+            });
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'view') {
+                loadSportsMedia();
+            }
+        }
+
+        // Handle sports media upload
+        document.getElementById('uploadSportsForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const uploadBtn = document.getElementById('uploadBtn');
+            const message = document.getElementById('uploadMessage');
+            
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = 'Uploading...';
+            message.style.display = 'none';
+
+            try {
+                const formData = new FormData(e.target);
+                
+                const headers = {};
+                const teacherToken = localStorage.getItem('teacherToken');
+                const adminToken = localStorage.getItem('adminToken');
+                if (teacherToken) headers['Authorization'] = `Bearer ${teacherToken}`;
+                else if (adminToken) headers['Authorization'] = `Bearer ${adminToken}`;
+
+                const response = await fetch('/api/sports', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers,
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    message.className = 'message success';
+                    message.textContent = 'Sports media uploaded successfully!';
+                    message.style.display = 'block';
+                    e.target.reset();
+                    
+                    // Reset file input display
+                    document.querySelector('.file-input span').textContent = 'Click to select image or video file';
+                } else {
+                    message.className = 'message error';
+                    message.textContent = result.error || 'Upload failed';
+                    message.style.display = 'block';
+                }
+
+            } catch (error) {
+                message.className = 'message error';
+                message.textContent = 'Network error. Please try again.';
+                message.style.display = 'block';
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Upload Media';
+            }
+        });
+
+        async function loadSportsMedia() {
+            const sportsContainer = document.getElementById('sportsContainer');
+            const loading = document.getElementById('sportsLoading');
+            
+            loading.style.display = 'block';
+            sportsContainer.innerHTML = '';
+
+            try {
+                const response = await fetch('/api/sports');
+                sportsMedia = await response.json();
+                
+                displaySportsMedia(sportsMedia);
+                
+            } catch (error) {
+                console.error('Failed to load sports media:', error);
+                sportsContainer.innerHTML = '<p>Failed to load sports media. Please try again.</p>';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function displaySportsMedia(mediaToShow) {
+            const sportsContainer = document.getElementById('sportsContainer');
+            
+            if (mediaToShow.length === 0) {
+                sportsContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 50px;">No sports media found.</p>';
+                return;
+            }
+
+            sportsContainer.innerHTML = mediaToShow.map(media => {
+                let mediaElement = '';
+                
+                // Check if current user can update this media: admin, teacher, or the original uploader
+                const isOwner = currentUser && media.uploadedBy === currentUser.id;
+                const canUpdate = currentUser && (currentUser.role === 'admin' || currentUser.role === 'teacher' || isOwner);
+                const uploaderName = media.uploadedByName || 'Unknown';
+                
+                const mediaUrl = media.mediaFile && (media.mediaFile.startsWith('http://') || media.mediaFile.startsWith('https://')) ? media.mediaFile : `/${media.mediaFile}`;
+                if (media.mediaType === 'image') {
+                    mediaElement = `<img src="${mediaUrl}" alt="${media.description}" class="media-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzUwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDM1MCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzNTAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+Cjx0ZXh0IHg9IjE3NSIgeT0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE0Ij5JbWFnZSBub3QgYXZhaWxhYmxlPC90ZXh0Pgo8L3N2Zz4K'">`;
+                } else {
+                    mediaElement = `<video class="media-video" controls muted>
+                        <source src="${mediaUrl}" type="${media.mimeType || 'video/mp4'}">
+                        Your browser does not support the video tag.
+                    </video>`;
+                }
+
+                return `
+                    <div class="sports-card">
+                        <div class="media-container">
+                            ${mediaElement}
+                        </div>
+                        <div class="sports-info">
+                            <div class="category-badge">${media.category}</div>
+                            <div class="sports-description">${media.description}</div>
+                            <div class="sports-details">
+                                <strong>Type:</strong> ${media.mediaType}<br>
+                                <strong>Uploaded by:</strong> ${uploaderName}<br>
+                                <strong>Uploaded:</strong> ${new Date(media.uploadDate).toLocaleDateString()}
+                                ${media.eventDate ? `<br><strong>Event Date:</strong> ${new Date(media.eventDate).toLocaleDateString()}` : ''}
+                                ${media.location ? `<br><strong>Location:</strong> ${media.location}` : ''}
+                                <br><strong>Views:</strong> ${media.views || 0}
+                                <br><strong>Likes:</strong> ${media.likes || 0}
+                            </div>
+                            <div class="sports-actions">
+                                ${canUpdate ? `
+                                    <button class="action-btn update-btn" onclick="updateSportsMedia('${media._id}')">Update</button>
+                                    <button class="action-btn delete-btn" onclick="deleteSportsMedia('${media._id}')">Delete</button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function applyFilters() {
+            const categoryFilter = document.getElementById('filterCategory').value;
+            const mediaTypeFilter = document.getElementById('filterMediaType').value;
+
+            const filteredMedia = sportsMedia.filter(media => {
+                const matchesCategory = !categoryFilter || media.category === categoryFilter;
+                const matchesType = !mediaTypeFilter || media.mediaType === mediaTypeFilter;
+                
+                return matchesCategory && matchesType;
+            });
+
+            displaySportsMedia(filteredMedia);
+        }
+
+                async function updateSportsMedia(mediaId) {
+                        openUpdateSportModal(mediaId);
+                }
+
+                // Inject update modal for sports media
+                (function(){
+                        const modal = `
+                        <div id="updateSportModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;z-index:9999;">
+                            <div style="background:#fff;padding:18px;border-radius:8px;max-width:700px;margin:0 auto;">
+                                <h2>Update Sports Media</h2>
+                                <form id="updateSportForm" enctype="multipart/form-data">
+                                    <input type="hidden" id="usId" name="id">
+                                    <label>Description<textarea id="usDescription" name="description" rows="3"></textarea></label>
+                                    <label>Category<select id="usCategory" name="category"></select></label>
+                                    <label>Event Date<input type="date" id="usEventDate" name="eventDate"></label>
+                                    <label>Location<input type="text" id="usLocation" name="location"></label>
+                                    <label>Replace Media<input type="file" id="usMedia" name="mediaFile" accept="image/*,video/*"></label>
+                                    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;"><button type="button" id="cancelUS" class="submit-btn" style="background:#ccc;color:#000;">Cancel</button><button type="submit" class="submit-btn">Save</button></div>
+                                </form>
+                            </div>
+                        </div>`;
+                        document.body.insertAdjacentHTML('beforeend', modal);
+                        document.getElementById('cancelUS').addEventListener('click', ()=>{document.getElementById('updateSportModal').style.display='none'});
+                        const catSelect = document.getElementById('usCategory'); ['Football','Basketball','Volleyball','Athletics','Swimming','Tennis','Netball','Traditional Games','Other'].forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;catSelect.appendChild(o)});
+
+                        document.getElementById('updateSportForm').addEventListener('submit', async (e)=>{
+                            e.preventDefault(); const id=document.getElementById('usId').value; const form=new FormData(e.target);
+                            const headers = {}; const t=localStorage.getItem('teacherToken'); const a=localStorage.getItem('adminToken'); if(t) headers['Authorization']=`Bearer ${t}`; else if(a) headers['Authorization']=`Bearer ${a}`;
+                            const btn=e.target.querySelector('button[type="submit"]'); btn.disabled=true;
+                            try{ const res = await fetch(`/api/sports/${id}`,{method:'PUT',credentials:'include',headers,body:form}); const j=await res.json(); if(res.ok){ alert('Updated'); document.getElementById('updateSportModal').style.display='none'; loadSportsMedia(); } else alert(j.error||'Failed'); }catch(err){ alert('Network error') } finally{ btn.disabled=false }
+                        });
+
+                        window.openUpdateSportModal = (id)=>{ const s = sportsMedia.find(x=>x._id===id||x._id==id); if(!s){alert('Not found'); return;} document.getElementById('usId').value=s._id; document.getElementById('usDescription').value=s.description||''; document.getElementById('usCategory').value=s.category||'Other'; document.getElementById('usEventDate').value = s.eventDate ? new Date(s.eventDate).toISOString().split('T')[0] : ''; document.getElementById('usLocation').value=s.location||''; document.getElementById('updateSportModal').style.display='flex'; };
+                })();
+
+        async function deleteSportsMedia(mediaId) {
+            if (!confirm('Are you sure you want to delete this sports media?')) {
+                return;
+            }
+
+            try {
+                const headers = {};
+                const adminToken2 = localStorage.getItem('adminToken');
+                if (adminToken2) headers['Authorization'] = `Bearer ${adminToken2}`;
+
+                const response = await fetch(`/api/sports/${mediaId}`, {
+                    method: 'DELETE',
+                    credentials: 'include',
+                    headers
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Sports media deleted successfully!');
+                    loadSportsMedia(); // Reload media
+                } else {
+                    alert(result.error || 'Failed to delete sports media');
+                }
+
+            } catch (error) {
+                alert('Network error. Please try again.');
+            }
+        }
+    </script>
+    <!-- AI Support JavaScript -->
+    <script src="ai-support.js"></script>
+</body>
+</html>
+

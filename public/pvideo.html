@@ -1,0 +1,1046 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HDT EDUCATION SERVICES - Educational Videos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .filters-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #ff6b6b;
+            outline: none;
+        }
+
+        .filter-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .filter-btn:hover {
+            background: linear-gradient(135deg, #e55555 0%, #d84942 100%);
+            transform: translateY(-2px);
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: #ff6b6b;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 250px;
+            background: #000;
+            position: relative;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-thumbnail:hover {
+            transform: scale(1.05);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 50%;
+            font-size: 24px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover .play-overlay {
+            background: rgba(0, 0, 0, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .video-info {
+            padding: 25px;
+        }
+
+        .video-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .class-badge {
+            background: #FFE0E0;
+            color: #D32F2F;
+        }
+
+        .subject-badge {
+            background: #E0F2F1;
+            color: #00796B;
+        }
+
+        .quality-badge {
+            background: #E8EAF6;
+            color: #3F51B5;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .video-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .watch-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+            color: white;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #FF9800 0%, #FFC107 100%);
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-reactions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            justify-content: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .reaction-btn {
+            background: #fff;
+            border: 2px solid #dee2e6;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .like-btn:hover {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #28a745;
+        }
+
+        .dislike-btn:hover {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+
+        .reaction-btn.active {
+            background: #ff6b6b;
+            color: white;
+            border-color: #ff6b6b;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 80px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff6b6b;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-videos {
+            text-align: center;
+            padding: 80px 20px;
+            color: #666;
+        }
+
+        .no-videos-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .stats-bar {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .stats-text {
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 900px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: #ff6b6b;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-video {
+            width: 100%;
+            height: 500px;
+        }
+
+        .modal-info {
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-actions {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 20px;
+            }
+
+            .modal-video {
+                height: 250px;
+            }
+        }
+
+        .search-highlight {
+            background: yellow;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .view-count {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .view-count::before {
+            content: '👁️';
+        }
+
+        /* Footer styles (responsive, high-contrast, modern) */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: #ecf0f1;
+            padding: 60px 0 20px;
+            margin-top: 50px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+            align-items: start;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .motto {
+            color: #dfe6f2;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .footer-contact-info, .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-contact-item, .contact-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+
+        .footer a { color: #bdc3c7; text-decoration: none; }
+        .footer a:hover { color: #ffffff; text-decoration: underline; }
+
+        .footer .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 20px;
+            text-align: center;
+            color: #bdc3c7;
+        }
+
+        .footer .developer-credit {
+            background: rgba(255,255,255,0.02);
+            padding: 12px;
+            border-radius: 8px;
+            color: #bdc3c7;
+            font-size: 13px;
+        }
+
+        .footer img { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 2px solid #3498db; box-shadow: 0 2px 6px rgba(0,0,0,0.2); vertical-align: middle; }
+
+        @media (max-width: 768px) {
+            .footer-content { grid-template-columns: 1fr; }
+            .footer { padding: 40px 0; }
+            .footer img { width: 40px; height: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Educational Videos</h1>
+            <p>Learn through engaging video content from our expert teachers</p>
+        </div>
+
+        <div class="main-content">
+            <div class="filters-section">
+                <h2 class="filters-title">Discover Videos</h2>
+                <div class="filters-grid">
+                    <div class="form-group">
+                        <label for="searchTitle">Search Videos</label>
+                        <input type="text" id="searchTitle" placeholder="Enter video title...">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterClass">Class Level</label>
+                        <select id="filterClass">
+                            <option value="">All Classes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterSubject">Subject</label>
+                        <select id="filterSubject">
+                            <option value="">All Subjects</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterQuality">Video Quality</label>
+                        <select id="filterQuality">
+                            <option value="">All Qualities</option>
+                            <option value="HD">HD</option>
+                            <option value="SD">SD</option>
+                            <option value="FHD">Full HD</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button onclick="applyFilters()" class="filter-btn">🔍 Search Videos</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-bar" id="statsBar" style="display: none;">
+                <div class="stats-text" id="statsText">Loading videos...</div>
+            </div>
+
+            <div class="loading" id="videosLoading">
+                <div class="spinner"></div>
+                <p>Loading our amazing video collection...</p>
+            </div>
+
+            <div id="videosContainer" class="videos-grid"></div>
+        </div>
+
+
+        <div class="footer">
+            <div class="footer-content">
+                <!-- School Information Section -->
+                <div class="footer-section">
+                    <h3 title="home of dynamic technologies"><img src="WhatsApp Image 2025-08-08 at 11.41.10_148b0047.jpg" alt="HDT Education Logo" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 2px solid #3498db; box-shadow: 0 2px 6px rgba(0,0,0,0.2); vertical-align: middle; margin-right: 10px;"> HDT EDUCATION SERVICES</h3>
+                    <p class="motto">"Empowering minds, building futures, creating leaders of tomorrow."</p>
+                    <p>HDT EDUCATION SERVICES is committed to providing excellence in education through innovative teaching methods, quality learning resources, and comprehensive student development programs.</p>
+                    
+                    <h4>📞 Contact Information</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span>📧</span>
+                            <span>hdteducationservice@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span>📞</span>
+                            <span>+255769855331, +255710005331</span>
+                        </div>
+                        <div class="contact-item">
+                            <span>📍</span>
+                            <span><a href="https://www.google.com/maps/dir/?api=1&destination=-6.823988,39.253805" target="_blank" style="color: #bdc3c7; text-decoration: underline;">sharif shamba</a></span>
+                        </div>
+                        <div class="contact-item">
+                            <span>🕐</span>
+                            <span>Mon-Fri: 7:00 AM - 4:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links Section -->
+                <div class="footer-section">
+                    <h3>🔗 Quick Links</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span>📚</span>
+                            <a href="books.html" style="color: #bdc3c7; text-decoration: none;">Books Library</a>
+                        </div>
+                        <div class="contact-item">
+                            <span>🎬</span>
+                            <a href="pvideo.html" style="color: #bdc3c7; text-decoration: none;">Educational Videos</a>
+                        </div>
+                        <div class="contact-item">
+                            <span>📄</span>
+                            <a href="paper.html" style="color: #bdc3c7; text-decoration: none;">Past Papers</a>
+                        </div>
+                        <div class="contact-item">
+                            <span>❓</span>
+                            <a href="QandA.html" style="color: #bdc3c7; text-decoration: none;">Questions & Answers</a>
+                        </div>
+                        <div class="contact-item">
+                            <span>🏆</span>
+                            <a href="sport.html" style="color: #bdc3c7; text-decoration: none;">Sports & Activities</a>
+                        </div>
+                        <div class="contact-item">
+                            <span>💬</span>
+                            <a href="ulogin.html?redirect=chat" style="color: #bdc3c7; text-decoration: none;">Community Chat</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Administrative Links -->
+                <div class="footer-section">
+                    <h3>👨‍💼 Administration</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span>🔐</span>
+
+                        </div>
+                        <div class="contact-item">
+                            <span>👤</span>
+                            <a href="ulogin.html" style="color: #bdc3c7; text-decoration: none;">Student/Teacher Login</a>
+                        </div>
+                        <div class="contact-item">
+                            <span>📝</span>
+                            <a href="uregister.html" style="color: #bdc3c7; text-decoration: none;">Register Account</a>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 20px;">🌐 Follow Us</h4>
+                    <div class="contact-info" style="flex-direction: row; justify-content: center; gap: 18px; background: rgba(255,255,255,0.12); border-radius: 12px; padding: 10px 0; margin-top: 8px;">
+                        <a href="https://www.facebook.com/king.august.733" target="_blank" style="color: #4267B2; font-size: 28px; text-decoration: none; background: white; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(66,103,178,0.08);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;"><path d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.406.595 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.406 24 22.674V1.326C24 .592 23.406 0 22.675 0z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/hdt_tutor?igsh=cjZ3N3FxdGE2Njlo" target="_blank" style="color: #E1306C; font-size: 28px; text-decoration: none; background: white; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(225,48,108,0.08);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.241 1.308 3.608.058 1.266.069 1.646.069 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.241 1.246-3.608 1.308-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.241-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.241-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.771.131 4.659.425 3.678 1.406c-.981.981-1.275 2.093-1.334 3.374C2.013 8.332 2 8.741 2 12c0 3.259.013 3.668.072 4.948.059 1.281.353 2.393 1.334 3.374.981.981 2.093 1.275 3.374 1.334C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.281-.059 2.393-.353 3.374-1.334.981-.981 1.275-2.093 1.334-3.374.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.059-1.281-.353-2.393-1.334-3.374-.981-.981-2.093-1.275-3.374-1.334C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                        </a>
+                        <a href="https://youtube.com/@hdttutor?si=UmpCb2s7BYq_hj5M" target="_blank" style="color: #FF0000; font-size: 28px; text-decoration: none; background: white; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(255,0,0,0.08);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;"><path d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.117C19.458 3.5 12 3.5 12 3.5s-7.458 0-9.391.569A2.994 2.994 0 0 0 .502 6.186C0 8.12 0 12 0 12s0 3.88.502 5.814a2.994 2.994 0 0 0 2.107 2.117C4.542 20.5 12 20.5 12 20.5s7.458 0 9.391-.569a2.994 2.994 0 0 0 2.107-2.117C24 15.88 24 12 24 12s0-3.88-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 HDT EDUCATION SERVICES powered by HDT SERVICES LIMITED. All rights reserved.</p>
+                <p>Empowering minds, building futures, creating leaders of tomorrow.</p>
+                <div style="margin: 15px 0;">
+                    <a href="aboutschool.html" style="background: #667eea; color: white; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-weight: 500;">About Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Video Player</div>
+                <button class="modal-close" onclick="closeVideoModal()">&times;</button>
+            </div>
+            <video id="modalVideo" class="modal-video" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="modal-info" id="modalInfo"></div>
+        </div>
+    </div>
+
+    <script>
+        let allVideos = [];
+        let filteredVideos = [];
+
+        // Load videos and reference data on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadReferenceData();
+            await loadVideos();
+            setupSearch();
+        });
+
+        async function loadReferenceData() {
+            try {
+                const response = await fetch('/api/reference-data');
+                const data = await response.json();
+                
+                // Populate filter dropdowns
+                populateSelect('filterClass', data.classLevels);
+                populateSelect('filterSubject', data.subjects);
+
+            } catch (error) {
+                console.error('Failed to load reference data:', error);
+            }
+        }
+
+        function populateSelect(selectId, options) {
+            const select = document.getElementById(selectId);
+            
+            options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option;
+                optionElement.textContent = option;
+                select.appendChild(optionElement);
+            });
+        }
+
+        async function loadVideos() {
+            const videosContainer = document.getElementById('videosContainer');
+            const loading = document.getElementById('videosLoading');
+            const statsBar = document.getElementById('statsBar');
+            
+            loading.style.display = 'block';
+            videosContainer.innerHTML = '';
+            statsBar.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/videos');
+                allVideos = await response.json();
+                filteredVideos = [...allVideos];
+                
+                displayVideos(filteredVideos);
+                updateStats(filteredVideos.length, allVideos.length);
+                
+            } catch (error) {
+                console.error('Failed to load videos:', error);
+                videosContainer.innerHTML = `
+                    <div class="no-videos">
+                        <div class="no-videos-icon">😞</div>
+                        <h3>Failed to load videos</h3>
+                        <p>Please check your connection and try again.</p>
+                    </div>
+                `;
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function displayVideos(videos) {
+            const videosContainer = document.getElementById('videosContainer');
+            
+            if (videos.length === 0) {
+                videosContainer.innerHTML = `
+                    <div class="no-videos">
+                        <div class="no-videos-icon">🎬</div>
+                        <h3>No videos found</h3>
+                        <p>Try adjusting your search criteria to find more videos.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            videosContainer.innerHTML = videos.map(video => {
+                const uploadDate = new Date(video.uploadDate).toLocaleDateString();
+                const thumbnailSrc = video.thumbnail ? ((video.thumbnail.startsWith('http://') || video.thumbnail.startsWith('https://')) ? video.thumbnail : `/${video.thumbnail}`) : 
+                    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDM4MCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzODAiIGhlaWdodD0iMjUwIiBmaWxsPSIjMDAwIi8+Cjx0ZXh0IHg9IjE5MCIgeT0iMTI1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjE2Ij7wn5OQIFZJREVPPC90ZXh0Pgo8L3N2Zz4K';
+                
+                return `
+                    <div class="video-card">
+                        <div class="video-player" onclick="openVideoModal('${video._id}')">
+                            <img src="${thumbnailSrc}" alt="${video.description}" class="video-thumbnail">
+                            <div class="play-overlay">▶️</div>
+                            ${video.duration ? `<div class="video-duration">${formatDuration(video.duration)}</div>` : ''}
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">${highlightSearchTerm(video.description)}</div>
+                            <div class="video-badges">
+                                <span class="badge class-badge">${video.classLevel}</span>
+                                <span class="badge subject-badge">${video.subject}</span>
+                                ${video.quality ? `<span class="badge quality-badge">${video.quality}</span>` : ''}
+                            </div>
+                            <div class="video-description">
+                                ${video.description || 'No description available.'}
+                            </div>
+                            <div class="video-meta">
+                                <span>📅 ${uploadDate}</span>
+                                <span class="view-count">${video.views || 0} views</span>
+                            </div>
+                            <div class="video-reactions">
+                                <button onclick="likeContent('${video._id}', 'video')" class="reaction-btn like-btn">
+                                    👍 <span id="like-${video._id}">${video.likes || 0}</span>
+                                </button>
+                                <button onclick="dislikeContent('${video._id}', 'video')" class="reaction-btn dislike-btn">
+                                    👎 <span id="dislike-${video._id}">${video.dislikes || 0}</span>
+                                </button>
+                            </div>
+                            <div class="video-actions">
+                                <button onclick="openVideoModal('${video._id}')" class="action-btn watch-btn">
+                                    ▶️ Watch Now
+                                </button>
+                                <a href="${(video.videoFile && (video.videoFile.startsWith('http://') || video.videoFile.startsWith('https://'))) ? video.videoFile : `/${video.videoFile}`}" download="${video.fileName}" class="action-btn download-btn">
+                                    💾 Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openVideoModal(videoId) {
+            const video = allVideos.find(v => v._id === videoId);
+            if (!video) return;
+
+            const modal = document.getElementById('videoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalInfo = document.getElementById('modalInfo');
+            
+            modalTitle.textContent = video.description;
+            modalVideo.src = `${(video.videoFile && (video.videoFile.startsWith('http://') || video.videoFile.startsWith('https://'))) ? video.videoFile : `/${video.videoFile}`}`;
+            modalInfo.innerHTML = `
+                <h3>${video.description}</h3>
+                <p><strong>Subject:</strong> ${video.subject} | <strong>Class:</strong> ${video.classLevel}</p>
+                <p><strong>Description:</strong> ${video.description || 'No description available.'}</p>
+                <p><strong>Uploaded:</strong> ${new Date(video.uploadDate).toLocaleDateString()}</p>
+            `;
+            
+            modal.style.display = 'block';
+            
+            // Increment view count (you can implement this in the backend)
+            incrementViewCount(videoId);
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            modal.style.display = 'none';
+            modalVideo.pause();
+            modalVideo.src = '';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('videoModal');
+            if (event.target === modal) {
+                closeVideoModal();
+            }
+        }
+
+        function applyFilters() {
+            const searchTitle = document.getElementById('searchTitle').value.toLowerCase();
+            const classFilter = document.getElementById('filterClass').value;
+            const subjectFilter = document.getElementById('filterSubject').value;
+            const qualityFilter = document.getElementById('filterQuality').value;
+
+            filteredVideos = allVideos.filter(video => {
+                const matchesTitle = !searchTitle || video.description.toLowerCase().includes(searchTitle);
+                const matchesClass = !classFilter || video.classLevel === classFilter;
+                const matchesSubject = !subjectFilter || video.subject === subjectFilter;
+                const matchesQuality = !qualityFilter || video.quality === qualityFilter;
+                
+                return matchesTitle && matchesClass && matchesSubject && matchesQuality;
+            });
+
+            displayVideos(filteredVideos);
+            updateStats(filteredVideos.length, allVideos.length);
+        }
+
+        function setupSearch() {
+            // Real-time search as user types
+            document.getElementById('searchTitle').addEventListener('input', () => {
+                setTimeout(applyFilters, 300);
+            });
+
+            // Filter change handlers
+            document.getElementById('filterClass').addEventListener('change', applyFilters);
+            document.getElementById('filterSubject').addEventListener('change', applyFilters);
+            document.getElementById('filterQuality').addEventListener('change', applyFilters);
+
+            // Enter key search
+            document.getElementById('searchTitle').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    applyFilters();
+                }
+            });
+        }
+
+        function updateStats(showing, total) {
+            const statsBar = document.getElementById('statsBar');
+            const statsText = document.getElementById('statsText');
+            
+            if (showing === total) {
+                statsText.textContent = `🎬 Showing all ${total} educational videos`;
+            } else {
+                statsText.textContent = `🎬 Showing ${showing} of ${total} educational videos`;
+            }
+            
+            statsBar.style.display = 'block';
+        }
+
+        function highlightSearchTerm(text) {
+            const searchTerm = document.getElementById('searchTitle').value.toLowerCase();
+            if (!searchTerm) return text;
+            
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        function formatDuration(seconds) {
+            if (!seconds) return '';
+            
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        async function incrementViewCount(videoId) {
+            try {
+                await fetch(`/api/videos/${videoId}/view`, {
+                    method: 'POST'
+                });
+            } catch (error) {
+                console.error('Failed to increment view count:', error);
+            }
+        }
+
+        async function likeContent(contentId, contentType) {
+            try {
+                const response = await fetch(`/api/${contentType}s/${contentId}/like`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    document.getElementById(`like-${contentId}`).textContent = result.likes || 0;
+                    
+                    // Visual feedback
+                    const button = document.querySelector(`button[onclick*="${contentId}"][onclick*="like"]`);
+                    button.classList.add('active');
+                    setTimeout(() => button.classList.remove('active'), 300);
+                }
+            } catch (error) {
+                console.error('Failed to like content:', error);
+            }
+        }
+
+        async function dislikeContent(contentId, contentType) {
+            try {
+                const response = await fetch(`/api/${contentType}s/${contentId}/dislike`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    document.getElementById(`dislike-${contentId}`).textContent = result.dislikes || 0;
+                    
+                    // Visual feedback
+                    const button = document.querySelector(`button[onclick*="${contentId}"][onclick*="dislike"]`);
+                    button.classList.add('active');
+                    setTimeout(() => button.classList.remove('active'), 300);
+                }
+            } catch (error) {
+                console.error('Failed to dislike content:', error);
+            }
+        }
+    </script>
+    <!-- AI Support JavaScript -->
+    <script src="ai-support.js"></script>
+    <a href="index.html" style="position:fixed;bottom:24px;right:24px;z-index:2000;background:#667eea;color:#fff;padding:10px 18px;border-radius:24px;text-decoration:none;font-weight:bold;box-shadow:0 2px 8px rgba(102,126,234,0.2);transition:background 0.2s;">Return Home</a>
+</body>
+</html>
+

@@ -1,0 +1,1363 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HDT EDUCATION SERVICES - Manage Users</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header-left p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .filters-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: #556bda;
+        }
+
+        .clear-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .clear-btn:hover {
+            background: #5a6268;
+        }
+
+        .users-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-header {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 2px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .bulk-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .bulk-select {
+            padding: 8px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .bulk-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .approve-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .reject-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .user-email {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .role-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .role-student {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .role-teacher {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .role-other {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .edit-btn {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .approve-action-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .reject-action-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .delete-action-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .pagination {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .page-btn {
+            padding: 8px 15px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover,
+        .page-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .detail-value {
+            color: #6c757d;
+        }
+
+        .comment-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #dee2e6;
+        }
+
+        .comment-input {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .primary-btn {
+            background: #667eea;
+            color: white;
+        }
+
+        .success-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .danger-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .secondary-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .table-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .bulk-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <h1>👥 User Management</h1>
+                <p>Manage students, teachers, and community members</p>
+            </div>
+            <div class="header-nav">
+                <a href="admin.html" class="nav-btn">📊 Dashboard</a>
+                <a href="adminlog.html" class="nav-btn">🚪 Logout</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalUsers">0</div>
+                    <div class="stat-label">Total Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalStudents">0</div>
+                    <div class="stat-label">Students</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTeachers">0</div>
+                    <div class="stat-label">Teachers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingApprovals">0</div>
+                    <div class="stat-label">Pending Approvals</div>
+                </div>
+            </div>
+
+            <!-- Filters Section -->
+            <div class="filters-section">
+                <div class="filters-grid">
+                    <div class="form-group">
+                        <label for="searchName">Search by Name/Email</label>
+                        <input type="text" id="searchName" placeholder="Enter name or email...">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterRole">Role</label>
+                        <select id="filterRole">
+                            <option value="">All Roles</option>
+                            <option value="student">Students</option>
+                            <option value="teacher">Teachers</option>
+                            <option value="other">Community Members</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterStatus">Status</label>
+                        <select id="filterStatus">
+                            <option value="">All Status</option>
+                            <option value="approved">Approved</option>
+                            <option value="pending">Pending</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterDate">Registration Date</label>
+                        <input type="date" id="filterDate">
+                    </div>
+                </div>
+                <div class="filter-actions">
+                    <button class="filter-btn" onclick="applyFilters()">🔍 Apply Filters</button>
+                    <button class="clear-btn" onclick="clearFilters()">🗑️ Clear</button>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="users-table">
+                <div class="table-header">
+                    <h3 class="table-title">Users List</h3>
+                    <div class="bulk-actions">
+                        <select class="bulk-select" id="bulkAction">
+                            <option value="">Bulk Actions</option>
+                            <option value="approve">Approve Selected</option>
+                            <option value="reject">Reject Selected</option>
+                            <option value="delete">Delete Selected</option>
+                        </select>
+                        <button class="bulk-btn approve-btn" onclick="executeBulkAction()">Apply</button>
+                    </div>
+                </div>
+
+                <div class="loading" id="usersLoading">
+                    <div class="spinner"></div>
+                    <p>Loading users...</p>
+                </div>
+
+                <div id="usersTableContainer" style="display: none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="selectAll" onchange="toggleSelectAll()"></th>
+                                <th>User</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Registration Date</th>
+                                <th>Last Login</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Users will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination" id="pagination" style="display: none;">
+                    <!-- Pagination will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Details Modal -->
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">User Details</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- User details will be populated here -->
+            </div>
+            <div class="comment-section" id="commentSection" style="display: none;">
+                <h4>Add Comment:</h4>
+                <textarea class="comment-input" id="commentInput" placeholder="Add a comment for this user..."></textarea>
+            </div>
+            <div class="modal-actions" id="modalActions">
+                <!-- Action buttons will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allUsers = [];
+        let filteredUsers = [];
+        let currentPage = 1;
+        const usersPerPage = 10;
+        let selectedUsers = new Set();
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadUsers();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Real-time search
+            document.getElementById('searchName').addEventListener('input', () => {
+                setTimeout(applyFilters, 300);
+            });
+
+            // Filter changes
+            document.getElementById('filterRole').addEventListener('change', applyFilters);
+            document.getElementById('filterStatus').addEventListener('change', applyFilters);
+            document.getElementById('filterDate').addEventListener('change', applyFilters);
+
+            // Search on Enter
+            document.getElementById('searchName').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') applyFilters();
+            });
+        }
+
+        async function loadUsers() {
+            const loading = document.getElementById('usersLoading');
+            const tableContainer = document.getElementById('usersTableContainer');
+            
+            loading.style.display = 'block';
+            tableContainer.style.display = 'none';
+
+            try {
+                const token = localStorage.getItem('adminToken');
+                console.log('Loading users with token:', token ? 'Present' : 'Missing');
+                
+                const response = await fetch('/api/admin/users', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    credentials: 'include'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to load users: ${response.status}`);
+                }
+
+                allUsers = await response.json();
+                console.log('Loaded users:', allUsers.length, 'total');
+                console.log('Pending users:', allUsers.filter(u => u.status === 'pending').length);
+                
+                filteredUsers = [...allUsers];
+                
+                displayUsers();
+                updateStats();
+                
+            } catch (error) {
+                console.error('Failed to load users:', error);
+                // Show error message
+                loading.innerHTML = `
+                    <div style="color: #dc3545;">
+                        <h3>Failed to load users</h3>
+                        <p>Please check your connection and try again.</p>
+                        <button onclick="loadUsers()" style="margin-top: 15px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">Retry</button>
+                    </div>
+                `;
+            } finally {
+                loading.style.display = 'none';
+                tableContainer.style.display = 'block';
+            }
+        }
+
+        function displayUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            const pagination = document.getElementById('pagination');
+            
+            if (filteredUsers.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px; color: #666;">
+                            <div>📭</div>
+                            <p>No users found matching your criteria</p>
+                        </td>
+                    </tr>
+                `;
+                pagination.style.display = 'none';
+                return;
+            }
+
+            // Calculate pagination
+            const startIndex = (currentPage - 1) * usersPerPage;
+            const endIndex = startIndex + usersPerPage;
+            const usersToShow = filteredUsers.slice(startIndex, endIndex);
+
+            tbody.innerHTML = usersToShow.map(user => {
+                const registrationDate = new Date(user.createdAt).toLocaleDateString();
+                const lastLogin = user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never';
+                
+                let statusBadge = '';
+                if (user.status === 'approved') {
+                    statusBadge = '<span class="status-badge status-approved">Approved</span>';
+                } else if (user.status === 'rejected') {
+                    statusBadge = '<span class="status-badge status-rejected">Rejected</span>';
+                } else if (user.status === 'pending') {
+                    statusBadge = '<span class="status-badge status-pending">Pending</span>';
+                } else {
+                    statusBadge = '<span class="status-badge status-approved">Active</span>';
+                }
+
+                let avatar = '';
+                if (user.profileImage) {
+                    const url = (user.profileImage.startsWith('http://') || user.profileImage.startsWith('https://')) ? user.profileImage : `/${user.profileImage}`;
+                    avatar = `<div class="user-avatar" style="background-image: url(${url})"></div>`;
+                } else {
+                    avatar = `<div class="user-avatar">${user.fullName.charAt(0).toUpperCase()}</div>`;
+                }
+
+                return `
+                    <tr>
+                        <td><input type="checkbox" value="${user._id}" onchange="toggleUserSelection('${user._id}')"></td>
+                        <td>
+                            <div class="user-info">
+                                ${avatar}
+                                <div class="user-details">
+                                    <div class="user-name">${user.fullName}</div>
+                                    <div class="user-email">${user.email || user.phoneNumber || 'No contact'}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="role-badge role-${user.role}">${user.role}</span></td>
+                        <td>${statusBadge}</td>
+                        <td>${registrationDate}</td>
+                        <td>${lastLogin}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn view-btn" onclick="viewUser('${user._id}')">👁️ View</button>
+                                ${user.status === 'pending' ? 
+                                    `<button class="action-btn approve-action-btn" onclick="approveUser('${user._id}')">✅ Approve</button>
+                                     <button class="action-btn reject-action-btn" onclick="rejectUser('${user._id}')">❌ Reject</button>` 
+                                    : ''
+                                }
+                                <button class="action-btn delete-action-btn" onclick="deleteUser('${user._id}')">🗑️ Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            displayPagination();
+        }
+
+        function displayPagination() {
+            const pagination = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+
+            pagination.style.display = 'flex';
+            
+            let paginationHTML = '';
+            
+            // Previous button
+            paginationHTML += `
+                <button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                    ← Previous
+                </button>
+            `;
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    paginationHTML += `
+                        <button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">
+                            ${i}
+                        </button>
+                    `;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    paginationHTML += `<span class="page-btn">...</span>`;
+                }
+            }
+            
+            // Next button
+            paginationHTML += `
+                <button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                    Next →
+                </button>
+            `;
+            
+            pagination.innerHTML = paginationHTML;
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            if (page < 1 || page > totalPages) return;
+            
+            currentPage = page;
+            displayUsers();
+        }
+
+        function updateStats() {
+            const totalUsers = allUsers.length;
+            const totalStudents = allUsers.filter(u => u.role === 'student').length;
+            const totalTeachers = allUsers.filter(u => u.role === 'teacher').length;
+            const pendingApprovals = allUsers.filter(u => u.status === 'pending').length;
+
+            document.getElementById('totalUsers').textContent = totalUsers;
+            document.getElementById('totalStudents').textContent = totalStudents;
+            document.getElementById('totalTeachers').textContent = totalTeachers;
+            document.getElementById('pendingApprovals').textContent = pendingApprovals;
+        }
+
+        function applyFilters() {
+            const searchName = document.getElementById('searchName').value.toLowerCase();
+            const roleFilter = document.getElementById('filterRole').value;
+            const statusFilter = document.getElementById('filterStatus').value;
+            const dateFilter = document.getElementById('filterDate').value;
+
+            filteredUsers = allUsers.filter(user => {
+                // Search filter
+                const matchesSearch = !searchName || 
+                    user.fullName.toLowerCase().includes(searchName) ||
+                    (user.email && user.email.toLowerCase().includes(searchName)) ||
+                    (user.phoneNumber && user.phoneNumber.includes(searchName));
+
+                // Role filter
+                const matchesRole = !roleFilter || user.role === roleFilter;
+
+                // Status filter
+                let matchesStatus = true;
+                if (statusFilter) {
+                    if (statusFilter === 'approved') {
+                        matchesStatus = user.status === 'approved';
+                    } else if (statusFilter === 'pending') {
+                        matchesStatus = user.status === 'pending';
+                    } else if (statusFilter === 'rejected') {
+                        matchesStatus = user.status === 'rejected';
+                    }
+                }
+
+                // Date filter
+                const matchesDate = !dateFilter || 
+                    new Date(user.createdAt).toDateString() === new Date(dateFilter).toDateString();
+
+                return matchesSearch && matchesRole && matchesStatus && matchesDate;
+            });
+
+            currentPage = 1;
+            displayUsers();
+        }
+
+        function clearFilters() {
+            document.getElementById('searchName').value = '';
+            document.getElementById('filterRole').value = '';
+            document.getElementById('filterStatus').value = '';
+            document.getElementById('filterDate').value = '';
+            
+            filteredUsers = [...allUsers];
+            currentPage = 1;
+            displayUsers();
+        }
+
+        function toggleSelectAll() {
+            const selectAll = document.getElementById('selectAll');
+            const checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAll.checked;
+                if (selectAll.checked) {
+                    selectedUsers.add(checkbox.value);
+                } else {
+                    selectedUsers.delete(checkbox.value);
+                }
+            });
+        }
+
+        function toggleUserSelection(userId) {
+            if (selectedUsers.has(userId)) {
+                selectedUsers.delete(userId);
+            } else {
+                selectedUsers.add(userId);
+            }
+            
+            // Update select all checkbox
+            const allCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+            const checkedCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]:checked');
+            const selectAll = document.getElementById('selectAll');
+            
+            if (checkedCheckboxes.length === allCheckboxes.length) {
+                selectAll.checked = true;
+                selectAll.indeterminate = false;
+            } else if (checkedCheckboxes.length === 0) {
+                selectAll.checked = false;
+                selectAll.indeterminate = false;
+            } else {
+                selectAll.checked = false;
+                selectAll.indeterminate = true;
+            }
+        }
+
+        async function executeBulkAction() {
+            const action = document.getElementById('bulkAction').value;
+            if (!action || selectedUsers.size === 0) {
+                alert('Please select an action and at least one user.');
+                return;
+            }
+
+            const userIds = Array.from(selectedUsers);
+            const confirmMessage = `Are you sure you want to ${action} ${userIds.length} user(s)?`;
+            
+            if (!confirm(confirmMessage)) return;
+
+            try {
+                const response = await fetch('/api/admin/users/bulk-action', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ action, userIds })
+                });
+
+                if (response.ok) {
+                    alert(`Bulk ${action} completed successfully!`);
+                    selectedUsers.clear();
+                    document.getElementById('selectAll').checked = false;
+                    await loadUsers();
+                } else {
+                    const error = await response.json();
+                    alert(`Error: ${error.error}`);
+                }
+            } catch (error) {
+                console.error('Bulk action error:', error);
+                alert('Failed to execute bulk action. Please try again.');
+            }
+        }
+
+        function viewUser(userId) {
+            const user = allUsers.find(u => u._id === userId);
+            if (!user) return;
+
+            const modal = document.getElementById('userModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            const modalActions = document.getElementById('modalActions');
+            const commentSection = document.getElementById('commentSection');
+
+            modalTitle.textContent = `${user.fullName} - Details`;
+            
+            let userDetails = `
+                <div class="detail-row">
+                    <span class="detail-label">Full Name:</span>
+                    <span class="detail-value">${user.fullName}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Role:</span>
+                    <span class="detail-value">${user.role}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Email:</span>
+                    <span class="detail-value">${user.email || 'Not provided'}</span>
+                </div>
+            `;
+
+            if (user.role === 'teacher') {
+                userDetails += `
+                    <div class="detail-row">
+                        <span class="detail-label">Phone:</span>
+                        <span class="detail-value">${user.phoneContact || 'Not provided'}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">School:</span>
+                        <span class="detail-value">${user.school || 'Not provided'}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Gender:</span>
+                        <span class="detail-value">${user.gender || 'Not provided'}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Subjects:</span>
+                        <span class="detail-value">${user.assignedSubjects ? user.assignedSubjects.join(', ') : 'None'}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Class Levels:</span>
+                        <span class="detail-value">${user.assignedClassLevels ? user.assignedClassLevels.join(', ') : 'None'}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Approval Status:</span>
+                        <span class="detail-value">${user.status || 'Pending'}</span>
+                    </div>
+                `;
+                
+                if (user.cv) {
+                    const cvUrl = user.cv && (user.cv.startsWith('http://') || user.cv.startsWith('https://')) ? user.cv : `/${user.cv}`;
+                    userDetails += `
+                        <div class="detail-row">
+                            <span class="detail-label">CV:</span>
+                            <span class="detail-value"><a href="${cvUrl}" target="_blank">View CV</a></span>
+                        </div>
+                    `;
+                }
+            } else if (user.role === 'student') {
+                userDetails += `
+                    <div class="detail-row">
+                        <span class="detail-label">Class Level:</span>
+                        <span class="detail-value">${user.classLevel || 'Not provided'}</span>
+                    </div>
+                `;
+            } else if (user.role === 'other') {
+                userDetails += `
+                    <div class="detail-row">
+                        <span class="detail-label">Phone:</span>
+                        <span class="detail-value">${user.phoneNumber || 'Not provided'}</span>
+                    </div>
+                `;
+            }
+
+            userDetails += `
+                <div class="detail-row">
+                    <span class="detail-label">Registration Date:</span>
+                    <span class="detail-value">${new Date(user.createdAt).toLocaleDateString()}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Last Login:</span>
+                    <span class="detail-value">${user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never'}</span>
+                </div>
+            `;
+
+            // Show admin comments if any
+            if (user.adminComments && user.adminComments.length > 0) {
+                userDetails += `
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #dee2e6;">
+                        <h4>Admin Comments:</h4>
+                        ${user.adminComments.map(comment => `
+                            <div style="background: #f8f9fa; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                                <strong>${comment.date ? new Date(comment.date).toLocaleDateString() : 'Recent'}:</strong>
+                                ${comment.message || comment}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            modalBody.innerHTML = userDetails;
+
+            // Show comment section for teachers
+            if (user.role === 'teacher') {
+                commentSection.style.display = 'block';
+            } else {
+                commentSection.style.display = 'none';
+            }
+
+            // Modal actions
+            let actions = '<button class="modal-btn secondary-btn" onclick="closeModal()">Close</button>';
+            
+            if (user.status === 'pending') {
+                actions = `
+                    <button class="modal-btn success-btn" onclick="approveUserWithComment('${user._id}')">✅ Approve</button>
+                    <button class="modal-btn danger-btn" onclick="rejectUserWithComment('${user._id}')">❌ Reject</button>
+                    <button class="modal-btn secondary-btn" onclick="closeModal()">Close</button>
+                `;
+            }
+
+            modalActions.innerHTML = actions;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('userModal');
+            modal.style.display = 'none';
+            document.getElementById('commentInput').value = '';
+        }
+
+        async function approveUser(userId) {
+            if (!confirm('Are you sure you want to approve this user?')) return;
+            
+            try {
+                const token = localStorage.getItem('adminToken');
+                const response = await fetch(`/api/admin/users/${userId}/approve`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    alert('User approved successfully!');
+                    await loadUsers();
+                } else {
+                    const error = await response.json();
+                    alert(`Error: ${error.error}`);
+                }
+            } catch (error) {
+                console.error('Approval error:', error);
+                alert('Failed to approve user. Please try again.');
+            }
+        }
+
+        async function rejectUser(userId) {
+            if (!confirm('Are you sure you want to reject this user?')) return;
+            
+            try {
+                const token = localStorage.getItem('adminToken');
+                const response = await fetch(`/api/admin/users/${userId}/reject`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    alert('User rejected successfully!');
+                    await loadUsers();
+                } else {
+                    const error = await response.json();
+                    alert(`Error: ${error.error}`);
+                }
+            } catch (error) {
+                console.error('Rejection error:', error);
+                alert('Failed to reject user. Please try again.');
+            }
+        }
+
+        async function approveUserWithComment(userId) {
+            const comment = document.getElementById('commentInput').value;
+            
+            try {
+                const token = localStorage.getItem('adminToken');
+                const response = await fetch(`/api/admin/users/${userId}/approve`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ comment })
+                });
+
+                if (response.ok) {
+                    alert('User approved successfully!');
+                    closeModal();
+                    await loadUsers();
+                } else {
+                    const error = await response.json();
+                    alert(`Error: ${error.error}`);
+                }
+            } catch (error) {
+                console.error('Approval error:', error);
+                alert('Failed to approve user. Please try again.');
+            }
+        }
+
+        async function rejectUserWithComment(userId) {
+            const comment = document.getElementById('commentInput').value;
+            
+            if (!comment.trim()) {
+                alert('Please provide a reason for rejection.');
+                return;
+            }
+            
+            try {
+                const token = localStorage.getItem('adminToken');
+                const response = await fetch(`/api/admin/users/${userId}/reject`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ comment })
+                });
+
+                if (response.ok) {
+                    alert('User rejected successfully!');
+                    closeModal();
+                    await loadUsers();
+                } else {
+                    const error = await response.json();
+                    alert(`Error: ${error.error}`);
+                }
+            } catch (error) {
+                console.error('Rejection error:', error);
+                alert('Failed to reject user. Please try again.');
+            }
+        }
+
+        async function deleteUser(userId) {
+            if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) return;
+            
+            try {
+                const token = localStorage.getItem('adminToken');
+                const response = await fetch(`/api/admin/users/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    alert('User deleted successfully!');
+                    await loadUsers();
+                } else {
+                    const error = await response.json();
+                    alert(`Error: ${error.error}`);
+                }
+            } catch (error) {
+                console.error('Deletion error:', error);
+                alert('Failed to delete user. Please try again.');
+            }
+        }
+    </script>
+    <!-- AI Support JavaScript -->
+    <script src="ai-support.js"></script>
+</body>
+</html>
+

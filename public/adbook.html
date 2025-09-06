@@ -1,0 +1,777 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HDT EDUCATION SERVICES - Manage Books</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            background: linear-gradient(120deg, #f8fafc 0%, #e3e9f7 100%);
+            margin: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(60,80,120,0.12);
+            padding: 32px 24px 24px 24px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2a3a6e;
+            margin: 0;
+        }
+        .back-btn {
+            text-decoration: none;
+            color: #fff;
+            background: #2a3a6e;
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #1a2547;
+        }
+        .main-content {
+            margin-top: 8px;
+        }
+        .action-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .tab-button {
+            background: #e3e9f7;
+            color: #2a3a6e;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 6px 6px 0 0;
+            font-size: 1.08rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .tab-button.active {
+            background: #2a3a6e;
+            color: #fff;
+        }
+        .tab-content {
+            display: none;
+            background: #f6f8fc;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 2px 8px rgba(60,80,120,0.07);
+            padding: 28px 20px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .form-section h2 {
+            color: #2a3a6e;
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+        }
+        .form-row {
+            display: flex;
+            gap: 24px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 18px;
+            flex: 1;
+        }
+        label {
+            font-weight: 500;
+            margin-bottom: 7px;
+            color: #2a3a6e;
+        }
+        input[type="text"], select, textarea {
+            padding: 9px 12px;
+            border: 1px solid #cfd8e3;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: #fff;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus, select:focus, textarea:focus {
+            border-color: #2a3a6e;
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+        }
+        .file-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #e3e9f7;
+            border-radius: 5px;
+            padding: 8px 12px;
+        }
+        .file-input input[type="file"] {
+            display: none;
+        }
+        .file-input span {
+            color: #2a3a6e;
+            font-size: 0.98rem;
+            cursor: pointer;
+            padding: 6px 12px;
+            background: #fff;
+            border-radius: 4px;
+            border: 1px solid #cfd8e3;
+            transition: background 0.2s;
+        }
+        .file-input span:hover {
+            background: #f0f4fa;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #2a3a6e 60%, #4e6edb 100%);
+            color: #fff;
+            border: none;
+            padding: 11px 32px;
+            border-radius: 6px;
+            font-size: 1.08rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(60,80,120,0.07);
+            transition: background 0.2s;
+        }
+        .submit-btn:hover {
+            background: linear-gradient(90deg, #1a2547 60%, #2a3a6e 100%);
+        }
+        .message {
+            display: none;
+            margin-bottom: 16px;
+            padding: 10px 18px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .message.success {
+            background: #e6f7e6;
+            color: #1a7e1a;
+            border: 1px solid #b2e2b2;
+        }
+        .message.error {
+            background: #ffeaea;
+            color: #c00;
+            border: 1px solid #f5bcbc;
+        }
+        .filters-section {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+            background: #e3e9f7;
+            border-radius: 8px;
+            padding: 18px 14px;
+        }
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 4px solid #e3e9f7;
+            border-top: 4px solid #2a3a6e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+        .book-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(60,80,120,0.09);
+            display: flex;
+            gap: 18px;
+            padding: 18px 16px;
+            align-items: flex-start;
+            transition: box-shadow 0.2s;
+        }
+        .book-card:hover {
+            box-shadow: 0 6px 24px rgba(60,80,120,0.16);
+        }
+        .book-image {
+            width: 110px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #e3e9f7;
+            box-shadow: 0 1px 4px rgba(60,80,120,0.07);
+        }
+        .book-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .book-title {
+            font-size: 1.18rem;
+            font-weight: 600;
+            color: #2a3a6e;
+            margin-bottom: 4px;
+        }
+        .book-details {
+            font-size: 0.98rem;
+            color: #444;
+            margin-bottom: 8px;
+        }
+        .book-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .action-btn {
+            background: #e3e9f7;
+            color: #2a3a6e;
+            border: none;
+            padding: 7px 18px;
+            border-radius: 5px;
+            font-size: 0.98rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .action-btn.read-btn {
+            background: linear-gradient(90deg, #4e6edb 60%, #2a3a6e 100%);
+            color: #fff;
+        }
+        .action-btn.update-btn {
+            background: #f7e3e3;
+            color: #c00;
+        }
+        .action-btn.delete-btn {
+            background: #ffeaea;
+            color: #c00;
+        }
+        .action-btn:hover {
+            background: #2a3a6e;
+            color: #fff;
+        }
+        @media (max-width: 800px) {
+            .container {
+                padding: 12px 4px;
+            }
+            .header {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .form-row, .filters-section {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Book Management</h1>
+            <a href="admin.html" class="back-btn">← Back to Dashboard</a>
+        </div>
+
+        <div class="main-content">
+            <div class="action-tabs">
+                <button class="tab-button active" onclick="showTab('upload')">Upload Book</button>
+                <button class="tab-button" onclick="showTab('view')">View Uploaded Books</button>
+            </div>
+
+            <!-- Upload Book Tab -->
+            <div id="uploadTab" class="tab-content active">
+                <div class="form-section">
+                    <h2>Upload New Book</h2>
+                    <div class="message" id="uploadMessage"></div>
+                    
+                    <form id="uploadBookForm" enctype="multipart/form-data">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="classLevel">Class Level *</label>
+                                <select id="classLevel" name="classLevel" required>
+                                    <option value="">Select Class Level</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select Subject</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title">Book Title *</label>
+                            <input type="text" id="title" name="title" required placeholder="Enter book title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" rows="3" placeholder="Brief description of the book"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bookImage">Book Cover Image *</label>
+                                <div class="file-input">
+                                    <input type="file" id="bookImage" name="bookImage" accept="image/*" required>
+                                    <span>Click to select book cover image</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="bookFile">Book File *</label>
+                                <div class="file-input">
+                                    <input type="file" id="bookFile" name="bookFile" accept=".pdf,.doc,.docx" required>
+                                    <span>Click to select book file (PDF, DOC, DOCX)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="uploadBtn">Upload Book</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- View Books Tab -->
+            <div id="viewTab" class="tab-content">
+                <div class="filters-section">
+                    <div class="form-group">
+                        <label for="filterTitle">Filter by Title</label>
+                        <input type="text" id="filterTitle" placeholder="Search by book title">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterClass">Filter by Class</label>
+                        <select id="filterClass">
+                            <option value="">All Classes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterSubject">Filter by Subject</label>
+                        <select id="filterSubject">
+                            <option value="">All Subjects</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button onclick="applyFilters()" class="submit-btn">Apply Filters</button>
+                    </div>
+                </div>
+
+                <div class="loading" id="booksLoading">
+                    <div class="spinner"></div>
+                    <p>Loading books...</p>
+                </div>
+
+                <div id="booksContainer" class="books-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-auth.js"></script>
+    <script src="teacher-auth.js"></script>
+    <script>
+    // authentication handled by public/admin-auth.js
+    let currentUser = null;
+    // store reference data for selects
+    let classLevels = [];
+    let subjects = [];
+    // Minimal fallback subjects in case the server endpoint fails
+    const fallbackSubjects = ['English Language', 'Basic Mathematics', 'Biology', 'Physics', 'Chemistry'];
+        let books = [];
+
+        // Load reference data on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const ok = await window.adminAuth.checkAdminOrTeacher(true); // allow teachers
+            if (!ok) return;
+            currentUser = window.currentUser;
+            await loadReferenceData();
+            await loadBooks();
+        });
+
+        async function loadReferenceData() {
+            try {
+                const response = await fetch('/api/reference-data');
+                const data = await response.json();
+
+                classLevels = Array.isArray(data.classLevels) && data.classLevels.length ? data.classLevels : [];
+                subjects = Array.isArray(data.subjects) && data.subjects.length ? data.subjects : [];
+
+                // Populate dropdowns (use fallbacks when necessary)
+                populateSelect('classLevel', classLevels);
+                populateSelect('subject', subjects.length ? subjects : fallbackSubjects);
+                populateSelect('filterClass', classLevels);
+                populateSelect('filterSubject', subjects.length ? subjects : fallbackSubjects);
+
+            } catch (error) {
+                console.error('Failed to load reference data:', error);
+                // Use fallbacks so UI still works
+                populateSelect('classLevel', classLevels);
+                populateSelect('subject', fallbackSubjects);
+                populateSelect('filterClass', classLevels);
+                populateSelect('filterSubject', fallbackSubjects);
+            }
+        }
+
+        function populateSelect(selectId, options) {
+            const select = document.getElementById(selectId);
+            if (!select) return;
+
+            // Ensure placeholder option exists
+            let placeholder = select.querySelector('option[value=""]');
+            if (!placeholder) {
+                placeholder = document.createElement('option');
+                placeholder.value = '';
+                placeholder.textContent = select.getAttribute('data-placeholder') || 'Select';
+                select.insertBefore(placeholder, select.firstChild);
+            }
+
+            // Remove existing non-placeholder options
+            select.querySelectorAll('option:not([value=""])').forEach(opt => opt.remove());
+
+            // Use empty array if options not provided
+            options = Array.isArray(options) ? options : [];
+
+            options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option;
+                optionElement.textContent = option;
+                select.appendChild(optionElement);
+            });
+
+            // Reset to placeholder
+            select.value = '';
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'view') {
+                loadBooks();
+            }
+        }
+
+        // Handle file input display and clickable span
+        document.querySelectorAll('.file-input').forEach(fileInputDiv => {
+            const input = fileInputDiv.querySelector('input[type="file"]');
+            const span = fileInputDiv.querySelector('span');
+            if (!input || !span) return;
+            // When span is clicked, trigger file input
+            span.addEventListener('click', () => input.click());
+            // When file is selected, update span text
+            input.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    span.textContent = this.files[0].name;
+                } else {
+                    // Reset to default text
+                    if (input.name === 'bookImage') {
+                        span.textContent = 'Click to select book cover image';
+                    } else {
+                        span.textContent = 'Click to select book file (PDF, DOC, DOCX)';
+                    }
+                }
+            });
+        });
+
+        // Handle book upload
+        document.getElementById('uploadBookForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const uploadBtn = document.getElementById('uploadBtn');
+            const message = document.getElementById('uploadMessage');
+            
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = 'Uploading...';
+            message.style.display = 'none';
+
+            try {
+                const formData = new FormData(e.target);
+                
+                // Attach admin token if present so logged-in admins can upload
+                const headers = {};
+                // Prefer teacher token, fall back to admin token
+                const teacherToken = localStorage.getItem('teacherToken');
+                const adminToken = localStorage.getItem('adminToken');
+                if (teacherToken) headers['Authorization'] = `Bearer ${teacherToken}`;
+                else if (adminToken) headers['Authorization'] = `Bearer ${adminToken}`;
+
+                const response = await fetch('/api/books', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers,
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    message.className = 'message success';
+                    message.textContent = 'Book uploaded successfully!';
+                    message.style.display = 'block';
+                    e.target.reset();
+                    // Reset file input display
+                    document.querySelectorAll('.file-input span').forEach(span => {
+                        if (span.parentElement.querySelector('input[name="bookImage"]')) {
+                            span.textContent = 'Click to select book cover image';
+                        } else {
+                            span.textContent = 'Click to select book file (PDF, DOC, DOCX)';
+                        }
+                    });
+                } else {
+                    message.className = 'message error';
+                    message.textContent = result.error || 'Upload failed';
+                    message.style.display = 'block';
+                }
+
+            } catch (error) {
+                message.className = 'message error';
+                message.textContent = 'Network error. Please try again.';
+                message.style.display = 'block';
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Upload Book';
+            }
+        });
+
+        async function loadBooks() {
+            const booksContainer = document.getElementById('booksContainer');
+            const loading = document.getElementById('booksLoading');
+            
+            loading.style.display = 'block';
+            booksContainer.innerHTML = '';
+
+            try {
+                const response = await fetch('/api/books');
+                books = await response.json();
+                
+                displayBooks(books);
+                
+            } catch (error) {
+                console.error('Failed to load books:', error);
+                booksContainer.innerHTML = '<p>Failed to load books. Please try again.</p>';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function displayBooks(booksToShow) {
+            const booksContainer = document.getElementById('booksContainer');
+            
+            if (booksToShow.length === 0) {
+                booksContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 50px;">No books found.</p>';
+                return;
+            }
+
+            booksContainer.innerHTML = booksToShow.map(book => {
+                // Check if current user can update this book: admin, teacher, or the original uploader
+                const isOwner = currentUser && book.uploadedBy === currentUser.id;
+                const canUpdate = currentUser && (currentUser.role === 'admin' || currentUser.role === 'teacher' || isOwner);
+                const uploaderName = book.uploadedByName || 'Unknown';
+                
+                return `
+                <div class="book-card">
+                    ${(() => {
+                        const imgUrl = (book.bookImage && (book.bookImage.startsWith('http://') || book.bookImage.startsWith('https://'))) ? book.bookImage : `/${book.bookImage}`;
+                        return `<img src="${imgUrl}" alt="${book.title}" class="book-image"`;
+                    })()}
+                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+Cjx0ZXh0IHg9IjE1MCIgeT0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE0Ij5Cb29rIEltYWdlPC90ZXh0Pgo8L3N2Zz4K'">
+                    <div class="book-info">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-details">
+                            <strong>Class:</strong> ${book.classLevel}<br>
+                            <strong>Subject:</strong> ${book.subject}<br>
+                            <strong>Uploaded by:</strong> ${uploaderName}<br>
+                            <strong>Uploaded:</strong> ${new Date(book.uploadDate).toLocaleDateString()}
+                            ${book.description ? `<br><strong>Description:</strong> ${book.description}` : ''}
+                        </div>
+                        <div class="book-actions">
+                            <button class="action-btn read-btn" onclick="readBook('${book._id}')">Read Now</button>
+                            ${canUpdate ? `
+                                <button class="action-btn update-btn" onclick="updateBook('${book._id}')">Update</button>
+                                <button class="action-btn delete-btn" onclick="deleteBook('${book._id}')">Delete</button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function applyFilters() {
+            const titleFilter = document.getElementById('filterTitle').value.toLowerCase();
+            const classFilter = document.getElementById('filterClass').value;
+            const subjectFilter = document.getElementById('filterSubject').value;
+
+            const filteredBooks = books.filter(book => {
+                const matchesTitle = !titleFilter || book.title.toLowerCase().includes(titleFilter);
+                const matchesClass = !classFilter || book.classLevel === classFilter;
+                const matchesSubject = !subjectFilter || book.subject === subjectFilter;
+                
+                return matchesTitle && matchesClass && matchesSubject;
+            });
+
+            displayBooks(filteredBooks);
+        }
+
+        async function readBook(bookId) {
+            window.open(`/api/books/${bookId}/read`, '_blank');
+        }
+
+        async function updateBook(bookId) {
+            openUpdateBookModal(bookId);
+        }
+
+                // Inject update modal for books (markup + handlers)
+                (function(){
+                        const modal = `
+                        <div id="updateBookModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;z-index:9999;">
+                            <div style="background:#fff;padding:20px;border-radius:8px;max-width:700px;margin:0 auto;">
+                                <h2>Update Book</h2>
+                                <form id="updateBookForm" enctype="multipart/form-data">
+                                    <input type="hidden" id="updateBookId" name="id">
+                                    <label>Title<input type="text" id="updateTitle" name="title" required></label>
+                                    <label>Class Level<select id="updateClassLevel" name="classLevel"></select></label>
+                                    <label>Subject<select id="updateSubject" name="subject"></select></label>
+                                    <label>Description<textarea id="updateDescription" name="description" rows="3"></textarea></label>
+                                    <label>Replace Cover Image (optional)<input type="file" id="updateBookImage" name="bookImage" accept="image/*"></label>
+                                    <label>Replace Book File (optional)<input type="file" id="updateBookFile" name="bookFile" accept=".pdf,.doc,.docx"></label>
+                                    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px;"><button type="button" id="cancelUpdateBook" class="submit-btn" style="background:#ccc;color:#000;">Cancel</button><button type="submit" id="submitUpdateBook" class="submit-btn">Save</button></div>
+                                </form>
+                            </div>
+                        </div>`;
+                        document.body.insertAdjacentHTML('beforeend', modal);
+                        document.getElementById('cancelUpdateBook').addEventListener('click', ()=>{document.getElementById('updateBookModal').style.display='none'});
+
+                        function populate() {
+                            const cl = document.getElementById('updateClassLevel'); const su = document.getElementById('updateSubject');
+                            cl.innerHTML = '<option value="">Select Class Level</option>'; su.innerHTML = '<option value="">Select Subject</option>';
+                            classLevels.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;cl.appendChild(o)});
+                            subjects.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;su.appendChild(o)});
+                        }
+
+                        document.getElementById('updateBookForm').addEventListener('submit', async (e)=>{
+                            e.preventDefault();
+                            const id = document.getElementById('updateBookId').value;
+                            const form = new FormData(e.target);
+                            const headers = {}; const t=localStorage.getItem('teacherToken'); const a=localStorage.getItem('adminToken'); if(t) headers['Authorization']=`Bearer ${t}`; else if(a) headers['Authorization']=`Bearer ${a}`;
+                            const btn = document.getElementById('submitUpdateBook'); btn.disabled=true;
+                            try{
+                                const res = await fetch(`/api/books/${id}`,{method:'PUT',credentials:'include',headers,body:form});
+                                const r = await res.json();
+                                if(res.ok){ alert('Book updated'); document.getElementById('updateBookModal').style.display='none'; loadBooks(); }
+                                else alert(r.error||'Failed to update');
+                            }catch(err){ alert('Network error'); }
+                            finally{ btn.disabled=false }
+                        });
+
+                        window.openUpdateBookModal = (id)=>{
+                            populate();
+                            const b = books.find(x=>x._id===id||x._id==id);
+                            if(!b){ alert('Book not found'); return; }
+                            document.getElementById('updateBookId').value = b._id;
+                            document.getElementById('updateTitle').value = b.title||'';
+                            document.getElementById('updateClassLevel').value = b.classLevel||'';
+                            document.getElementById('updateSubject').value = b.subject||'';
+                            document.getElementById('updateDescription').value = b.description||'';
+                            document.getElementById('updateBookModal').style.display='flex';
+                        };
+                })();
+
+        async function deleteBook(bookId) {
+        if (!confirm('Are you sure you want to delete this book?')) {
+            return;
+        }
+        // Find and disable the delete button for this book
+        const deleteBtn = document.querySelector(`.action-btn.delete-btn[onclick="deleteBook('${bookId}')"]`);
+        if (deleteBtn) {
+            deleteBtn.disabled = true;
+            deleteBtn.textContent = 'Deleting...';
+        }
+        // Show loading indicator
+        const loading = document.getElementById('booksLoading');
+        if (loading) loading.style.display = 'block';
+        try {
+            // Attach admin token if present so logged-in admins can delete
+            const delHeaders = {};
+            const teacherTok2 = localStorage.getItem('teacherToken');
+            const adminToken2 = localStorage.getItem('adminToken');
+            if (teacherTok2) delHeaders['Authorization'] = `Bearer ${teacherTok2}`;
+            else if (adminToken2) delHeaders['Authorization'] = `Bearer ${adminToken2}`;
+
+            const response = await fetch(`/api/books/${bookId}`, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: delHeaders
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // Remove book from UI immediately for better UX
+                const bookCard = deleteBtn ? deleteBtn.closest('.book-card') : null;
+                if (bookCard) bookCard.remove();
+                alert('Book deleted successfully!');
+                // Optionally reload books for full refresh
+                await loadBooks();
+            } else {
+                alert(result.error || 'Failed to delete book');
+                if (deleteBtn) {
+                    deleteBtn.disabled = false;
+                    deleteBtn.textContent = 'Delete';
+                }
+            }
+        } catch (error) {
+            alert('Network error. Please try again.');
+            if (deleteBtn) {
+                deleteBtn.disabled = false;
+                deleteBtn.textContent = 'Delete';
+            }
+        } finally {
+            if (loading) loading.style.display = 'none';
+        }
+        }
+
+        // Add search functionality
+        document.getElementById('filterTitle').addEventListener('input', () => {
+            const searchTimeout = setTimeout(() => {
+                applyFilters();
+            }, 500);
+        });
+    </script>
+    <!-- AI Support JavaScript -->
+    <script src="ai-support.js"></script>
+</body>
+</html>
+
+<!-- reader removed: opens in new tab -->

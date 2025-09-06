@@ -1,0 +1,603 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HDT EDUCATION SERVICES - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 450px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .input-with-validation {
+            position: relative;
+        }
+
+        .validation-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .toggle-password:hover {
+            color: #667eea;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .forgot-password {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #556bda 0%, #654292 100%);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .register-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .role-display {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .role-display.student {
+            border-color: #28a745;
+            background: #f8fff9;
+        }
+
+        .role-display.teacher {
+            border-color: #007bff;
+            background: #f8fcff;
+        }
+
+        .role-display.other {
+            border-color: #6f42c1;
+            background: #faf8ff;
+        }
+
+        .role-display.pending {
+            border-color: #ffc107;
+            background: #fffdf5;
+        }
+
+        .role-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .admin-links {
+            text-align: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        .admin-links a {
+            color: #dc3545;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .admin-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .remember-forgot {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Welcome Back</h1>
+            <p>Login to access your educational dashboard</p>
+        </div>
+
+        <div class="main-content">
+            <div class="message" id="loginMessage"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-validation">
+                        <input type="email" id="email" name="email" required>
+                        <span class="validation-icon" id="emailIcon"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-validation">
+                        <input type="password" id="password" name="password" required>
+                        <span class="toggle-password" id="togglePassword">👁️</span>
+                    </div>
+                </div>
+
+                <div class="remember-forgot">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password" onclick="showForgotPassword()">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="submit-btn" id="loginBtn">
+                    Login
+                </button>
+            </form>
+
+            <div class="register-link">
+                <p>Don't have an account? <a href="uregister.html">Register here</a></p>
+            </div>
+
+            <div class="admin-links">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal (Simple Implementation) -->
+    <div id="forgotPasswordModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 30px; border-radius: 15px; max-width: 400px; width: 90%;">
+            <h3 style="margin-bottom: 20px; text-align: center;">Reset Password</h3>
+            <form id="forgotPasswordForm">
+                <div class="form-group">
+                    <label for="resetEmail">Enter your email address:</label>
+                    <input type="email" id="resetEmail" name="resetEmail" required>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" class="submit-btn" style="flex: 1;">Send Reset Link</button>
+                    <button type="button" onclick="hideForgotPassword()" style="flex: 1; background: #6c757d; color: white; border: none; padding: 15px; border-radius: 25px; cursor: pointer;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <a href="index.html" style="position:fixed;bottom:24px;right:24px;z-index:2000;background:#667eea;color:#fff;padding:10px 18px;border-radius:24px;text-decoration:none;font-weight:bold;box-shadow:0 2px 8px rgba(102,126,234,0.2);transition:background 0.2s;">Return Home</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setupFormValidation();
+            setupPasswordToggle();
+            checkExistingSession();
+        });
+
+        function setupFormValidation() {
+            const form = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const emailIcon = document.getElementById('emailIcon');
+
+            // Email validation
+            emailInput.addEventListener('input', () => {
+                const email = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (email && emailRegex.test(email)) {
+                    emailIcon.textContent = '✅';
+                } else if (email) {
+                    emailIcon.textContent = '❌';
+                } else {
+                    emailIcon.textContent = '';
+                }
+            });
+
+            // Form submission
+            form.addEventListener('submit', handleLogin);
+        }
+
+        function setupPasswordToggle() {
+            const passwordInput = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+
+            togglePassword.addEventListener('click', () => {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    togglePassword.textContent = '🙈';
+                } else {
+                    passwordInput.type = 'password';
+                    togglePassword.textContent = '👁️';
+                }
+            });
+        }
+
+        async function checkExistingSession() {
+            try {
+                const response = await fetch('/api/users/check-session', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const userData = await response.json();
+                    if (userData.user) {
+                        // User is already logged in, redirect to appropriate dashboard
+                        redirectToDashboard(userData.user);
+                    }
+                }
+            } catch (error) {
+                // Session check failed, continue with login form
+                console.log('No existing session found');
+            }
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = document.getElementById('loginBtn');
+            const message = document.getElementById('loginMessage');
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Logging in...';
+            
+            try {
+                const formData = new FormData(form);
+                const loginData = {
+                    email: formData.get('email'),
+                    password: formData.get('password'),
+                    rememberMe: formData.get('rememberMe') === 'on'
+                };
+                
+                const response = await fetch('/api/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData),
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    message.className = 'message success';
+                    message.textContent = result.message;
+                    message.style.display = 'block';
+                    
+                    // Show user role status
+                    showUserRoleStatus(result.user);
+                    
+                    // Persist token for teacher/client usage
+                    if (result.token && result.user) {
+                        try {
+                            if (result.user.role === 'teacher') {
+                                localStorage.setItem('teacherToken', result.token);
+                            }
+                            if (result.user.role === 'admin') {
+                                localStorage.setItem('adminToken', result.token);
+                            }
+                        } catch (e) {
+                            console.warn('Failed to persist token to localStorage', e);
+                        }
+                    }
+                    // Redirect after 1.5 seconds
+                    setTimeout(() => {
+                        redirectToDashboard(result.user);
+                    }, 1500);
+                } else {
+                    message.className = 'message error';
+                    message.textContent = result.error || 'Login failed';
+                    message.style.display = 'block';
+                }
+
+            } catch (error) {
+                message.className = 'message error';
+                message.textContent = 'Network error. Please try again.';
+                message.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Login';
+            }
+        }
+
+        function showUserRoleStatus(user) {
+            const form = document.getElementById('loginForm');
+            const roleDisplay = document.createElement('div');
+            roleDisplay.className = `role-display ${user.role}`;
+            
+            let roleIcon = '';
+            let roleText = '';
+            let statusText = '';
+            
+            switch (user.role) {
+                case 'student':
+                    roleIcon = '🧑‍🎓';
+                    roleText = 'Student Account';
+                    statusText = `Class: ${user.classLevel}`;
+                    break;
+                case 'teacher':
+                    roleIcon = '🧑‍🏫';
+                    roleText = 'Teacher Account';
+                    if (user.approved) {
+                        statusText = 'Account Approved ✅';
+                    } else {
+                        statusText = 'Pending Approval ⏳';
+                        roleDisplay.classList.add('pending');
+                    }
+                    break;
+                case 'other':
+                    roleIcon = '🧑';
+                    roleText = 'Community Member';
+                    statusText = 'Welcome back!';
+                    break;
+            }
+            
+            roleDisplay.innerHTML = `
+                <div class="role-icon">${roleIcon}</div>
+                <div><strong>${roleText}</strong></div>
+                <div style="font-size: 14px; margin-top: 5px;">${statusText}</div>
+            `;
+            
+            form.parentNode.insertBefore(roleDisplay, form);
+        }
+
+        function redirectToDashboard(user) {
+            // Check if there's a redirect parameter in the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirectParam = urlParams.get('redirect');
+            
+            let redirectUrl = '';
+            
+            // If redirect parameter is 'chat', go to chat.html for any authenticated user
+            if (redirectParam === 'chat') {
+                redirectUrl = 'chat.html';
+            } else {
+                // Default redirect based on user role
+                switch (user.role) {
+                    case 'student':
+                        redirectUrl = 'sprofile.html';
+                        break;
+                    case 'teacher':
+                        if (user.approved) {
+                            redirectUrl = 'tprofile.html';
+                        } else {
+                            redirectUrl = 'tprofile.html?pending=true';
+                        }
+                        break;
+                    case 'other':
+                        redirectUrl = 'oprofile.html';
+                        break;
+                    default:
+                        redirectUrl = 'index.html';
+                }
+            }
+            
+            window.location.href = redirectUrl;
+        }
+
+        function showForgotPassword() {
+            document.getElementById('forgotPasswordModal').style.display = 'flex';
+        }
+
+        function hideForgotPassword() {
+            document.getElementById('forgotPasswordModal').style.display = 'none';
+            document.getElementById('forgotPasswordForm').reset();
+        }
+
+        // Forgot Password Form Handler
+        document.getElementById('forgotPasswordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const resetEmail = document.getElementById('resetEmail').value;
+            const message = document.getElementById('loginMessage');
+            
+            try {
+                const response = await fetch('/api/users/forgot-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: resetEmail })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    message.className = 'message info';
+                    message.textContent = 'Password reset instructions sent to your email (if account exists)';
+                    message.style.display = 'block';
+                    hideForgotPassword();
+                } else {
+                    message.className = 'message error';
+                    message.textContent = result.error || 'Failed to send reset email';
+                    message.style.display = 'block';
+                    hideForgotPassword();
+                }
+
+            } catch (error) {
+                message.className = 'message error';
+                message.textContent = 'Network error. Please try again.';
+                message.style.display = 'block';
+                hideForgotPassword();
+            }
+        });
+
+        // Handle URL parameters (e.g., success messages from registration)
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = document.getElementById('loginMessage');
+            
+            if (urlParams.has('registered')) {
+                message.className = 'message success';
+                message.textContent = 'Registration successful! Please log in with your credentials.';
+                message.style.display = 'block';
+            }
+            
+            if (urlParams.has('approved')) {
+                message.className = 'message success';
+                message.textContent = 'Your teacher account has been approved! You can now access all features.';
+                message.style.display = 'block';
+            }
+        });
+    </script>
+    <!-- AI Support JavaScript -->
+    <script src="ai-support.js"></script>
+</body>
+</html>
+

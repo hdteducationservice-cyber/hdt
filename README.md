@@ -1,2 +1,1 @@
-# hdt
-real school
+

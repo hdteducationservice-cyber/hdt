@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDT Service Limited - Home of Dynamic Technology</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Larger buttons for better accessibility and visibility */
+        button {
+            padding: 12px 18px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        button:active {
+            transform: translateY(1px) scale(0.995);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .section {
+            padding: 3rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #4a5568;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        /* CEO Section */
+        .ceo-section {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+        }
+
+        .ceo-info {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .ceo-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .ceo-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .ceo-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .ceo-title {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .ceo-details {
+            text-align: left;
+        }
+
+        .education {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .education h4 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+
+        .education-item {
+            margin-bottom: 0.8rem;
+            padding-left: 1rem;
+            border-left: 3px solid #667eea;
+        }
+
+        /* Objectives Section */
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .objective-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+        }
+
+        .objective-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .objective-icon {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Company History */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 2rem;
+            width: 15px;
+            height: 15px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        /* Product Highlight */
+        .product-highlight {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 5px solid #2196f3;
+        }
+
+        .product-highlight h4 {
+            color: #1565c0;
+            margin-bottom: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .ceo-info {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .section {
+                padding: 2rem 1.5rem;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline::before {
+                left: 0.5rem;
+            }
+
+            .timeline-item::before {
+                left: -2.5rem;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">HDT Service Limited</div>
+                <div class="tagline">Home of Dynamic Technology</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Innovating Tomorrow's Technology Today</h1>
+            <p>Leading Tanzania's technological advancement through dynamic solutions and visionary leadership</p>
+        </div>
+    </section>
+
+        <!-- Centered toggle controls -->
+        <div id="topButtons" style="position:fixed; top:12px; left:50%; transform:translateX(-50%); z-index:200; display:flex; gap:10px;">
+            <button id="pageToggleBtn" style="background:#fff; border-radius:8px; padding:8px 12px; border:none; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.15);">about ceo</button>
+            <button id="devToggleBtn" style="background:#fff; border-radius:8px; padding:8px 12px; border:none; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.15);">about developer/director</button>
+        </div>
+
+        <!-- Developer Modal (hidden) -->
+        <div id="devModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:210; align-items:center; justify-content:center;">
+            <div style="background:#fff; max-width:720px; width:92%; margin:0 20px; border-radius:12px; padding:20px; position:relative;">
+                <button id="closeDevModal" style="position:absolute; right:12px; top:8px; border:none; background:none; font-size:22px; cursor:pointer;">&times;</button>
+                <h2 style="color:#667eea; margin-top:4px;">💻 Website Development — Developer / Director</h2>
+                <div style="margin-top:12px; color:#333; line-height:1.5;">
+                    <p><strong>Developer:</strong> Leo Tito Mwahalende</p>
+                    <p><strong>Education:</strong> BSc in Electronics Science and Communication<br>
+                    <strong>University:</strong> University of Dar es Salaam (2022–2025)</p>
+                    <p><strong>Profile:</strong><br>
+                    I am Leo Tito Mwahalende, skilled in full-stack software development, networking, PCB and circuit design, electronics repair, CCTV and access control systems, and computer maintenance. With certifications from Huawei, Hikvision, and Cisco, I combine software engineering and electronics expertise to design and implement reliable technical solutions.</p>
+                    <p><strong>GitHub:</strong> <a href="https://github.com/Mwahalende" target="_blank" rel="noopener">github.com/Mwahalende</a><br>
+                    <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/leo-mwahalende-763976309" target="_blank" rel="noopener">linkedin.com/in/leo-mwahalende-763976309</a></p>
+                    <p><strong>Contact:</strong> <a href="mailto:leomwahalende@gmail.com">leomwahalende@gmail.com</a><br>
+                    <strong>Location:</strong> Dar es Salaam, Tanzania</p>
+                </div>
+            </div>
+        </div>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- CEO Section -->
+            <section class="section ceo-section">
+                <h2>Meet Our Visionary Leader</h2>
+                <div class="ceo-info">
+                    <div class="ceo-card">
+                        <div class="ceo-avatar">HS</div>
+                        <div class="ceo-name">Hazen Sichilima</div>
+                        <div class="ceo-title">Chief Executive Officer</div>
+                        <p><strong>Born:</strong> August 31, 2001</p>
+                        <p><strong>Location:</strong> Tanzania</p>
+                    </div>
+                    <div class="ceo-details">
+                        <p>Hazen Sichilima stands as a testament to the power of dedication and entrepreneurial spirit. As the visionary CEO of HDT Service Limited, Hazen leads a company poised to make a significant impact in the tech landscape.</p>
+                        
+                        <div class="education">
+                            <h4>Educational Journey</h4>
+                            <div class="education-item">
+                                <strong>University of Dar es Salaam (UDSM)</strong><br>
+                                Bachelor of Education - Physics and Chemistry
+                            </div>
+                            <div class="education-item">
+                                <strong>Nkasi Secondary School</strong><br>
+                                Advanced Secondary Education
+                            </div>
+                            <div class="education-item">
+                                <strong>Mpanzi Secondary School</strong><br>
+                                Secondary Education
+                            </div>
+                            <div class="education-item">
+                                <strong>Matai Primary School</strong><br>
+                                Primary Education Foundation
+                            </div>
+                        </div>
+                        
+                        <p>This unique blend of scientific disciplines provided Hazen with a robust analytical framework and deep understanding of core principles — skills that are invaluable in the fast-paced world of technology.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Company Objectives -->
+            <section class="section">
+                <h2>Our Strategic Objectives</h2>
+                <div class="objectives-grid">
+                    <div class="objective-card">
+                        <h4><span class="objective-icon">a</span>Innovation Portfolio</h4>
+                        <p>Develop diversified portfolio of innovative technology solutions</p>
+                    </div>
+                    <div class="objective-card">
+                        <h4><span class="objective-icon">b</span>Market Leadership</h4>
+                        <p>Achieve significant market penetration and brand recognition</p>
+                    </div>
+                    <div class="objective-card">
+                        <h4><span class="objective-icon">c</span>R&D Excellence</h4>
+                        <p>Foster a culture of continuous innovation and research and development</p>
+                    </div>
+                    <div class="objective-card">
+                        <h4><span class="objective-icon">d</span>Skilled Workforce</h4>
+                        <p>Build a highly skilled and adaptive work force</p>
+                    </div>
+                    <div class="objective-card">
+                        <h4><span class="objective-icon">e</span>Strategic Partnerships</h4>
+                        <p>Establish strategic partnerships and collaboration</p>
+                    </div>
+                    <div class="objective-card">
+                        <h4><span class="objective-icon">f</span>National Impact</h4>
+                        <p>Contribute to Tanzania's technological advancement and socio-economic development</p>
+                    </div>
+                    <div class="objective-card">
+                        <h4><span class="objective-icon">g</span>Educational Technology</h4>
+                        <p>Run websites and mobile applications for education purposes including online courses</p>
+                    </div>
+                    <div class="objective-card">
+                        <h4><span class="objective-icon">h</span>E-commerce Platform</h4>
+                        <p>Establish a robust and secure e-commerce platform</p>
+                    </div>
+                    <div class="objective-card">
+                        <h4><span class="objective-icon">i</span>Digital Presence</h4>
+                        <p>Achieve significant online presence and engagement</p>
+                    </div>
+                    <div class="objective-card">
+                        <h4><span class="objective-icon">j</span>Software Solutions</h4>
+                        <p>Offer innovative software as a service solutions</p>
+                    </div>
+                    <div class="objective-card">
+                        <h4><span class="objective-icon">k</span>Technical Support</h4>
+                        <p>Provide high quality online technical support and training services</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Company History -->
+            <section class="section">
+                <h2>Our Journey: From Vision to Reality</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Late 2023</div>
+                        <h4>The Foundation</h4>
+                        <p>Hazen Sichilima, fresh from the University of Dar es Salaam, began meticulously laying the groundwork for HDT Service Limited. Months of intense research and development went into refining initial concepts for practical technological solutions.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">January 2024</div>
+                        <h4>Official Registration</h4>
+                        <p>HDT Service Limited was formally registered, marking the true commencement of our journey as the Home of Dynamic Technology.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Early 2024</div>
+                        <h4>Team Building</h4>
+                        <p>Operating from a modest co-working space in Dar es Salaam, Hazen focused on building a foundational team of young, enthusiastic engineers and technicians.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">April 2024</div>
+                        <h4>EcoSense Development</h4>
+                        <div class="product-highlight">
+                            <h4>🔬 EcoSense Smart Home Energy Monitoring System</h4>
+                            <p>Our flagship product - a smart home energy monitoring system designed to help Tanzanian households optimize electricity consumption. A functional prototype was ready for initial testing, addressing a critical need in power management.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">June 2024</div>
+                        <h4>Product Launch</h4>
+                        <p>EcoSense launched to cautious optimism. Early adopters praised its intuitive interface and valuable data insights, though market penetration proved challenging against established solutions.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">October - November 2024</div>
+                        <h4>Strategic Pivot</h4>
+                        <p>Recognizing market needs, we introduced a scaled-down, more affordable version of EcoSense for small businesses and expanded into technical consultation services to supplement revenue.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Early 2025</div>
+                        <h4>Innovation Breakthrough</h4>
+                        <div class="product-highlight">
+                            <h4>🚀 Revolutionary Predictive Maintenance Algorithm</h4>
+                            <p>Our team has been secretly developing a revolutionary new algorithm for predictive maintenance - a concept far more advanced than anything currently on the market. This breakthrough represents our strategic ace, positioning HDT Service Limited for transformative technological solutions.</p>
+                        </div>
+                        <p>As we celebrate our first anniversary, we look back on a challenging but victorious year. We've successfully developed viable products, secured loyal clients, and gained invaluable experience while building the foundation for dynamic future growth.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vision Statement -->
+            <section class="section">
+                <h2>Our Vision</h2>
+                <p>HDT Service Limited is founded on Hazen's innovative ideas and dedicated to harnessing dynamic technology. As we continue to grow, we remain committed to bringing cutting-edge solutions to the market, driven by a clear vision to transform Tanzania's technological landscape.</p>
+                
+                <p>Our journey from a modest startup to a company with breakthrough innovations demonstrates the power of resilience, continuous learning, and unwavering belief in our mission. The first year was about proving concepts, building resilience, and setting the stage for the dynamic future we envision.</p>
+                
+                <p><strong>We are not just surviving - we are positioning ourselves for an explosion of dynamic possibilities, ready to leap beyond energy monitoring into truly transformative technological solutions.</strong></p>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const btn = document.getElementById('pageToggleBtn');
+            const hero = document.querySelector('.hero');
+            const main = document.querySelector('.main-content');
+            let hidden = false;
+            btn.addEventListener('click', () => {
+                hidden = !hidden;
+                if (hero) hero.style.display = hidden ? 'none' : '';
+                if (main) main.style.display = hidden ? 'none' : '';
+                btn.textContent = hidden ? 'show about ceo' : 'about ceo';
+            });
+
+            const devBtn = document.getElementById('devToggleBtn');
+            const devModal = document.getElementById('devModal');
+            const closeDev = document.getElementById('closeDevModal');
+            let devVisible = false;
+            function setDevVisible(v) {
+                devVisible = v;
+                devModal.style.display = v ? 'flex' : 'none';
+                devBtn.textContent = v ? 'hide developer' : 'about developer/director';
+            }
+            devBtn.addEventListener('click', () => setDevVisible(!devVisible));
+            if (closeDev) closeDev.addEventListener('click', () => setDevVisible(false));
+            // Close modal when clicking outside content
+            devModal.addEventListener('click', (e) => {
+                if (e.target === devModal) setDevVisible(false);
+            });
+        })();
+    </script>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 HDT Service Limited - Home of Dynamic Technology. Leading Tanzania's technological advancement.</p>
+        </div>
+    </footer>
+</body>
+</html>

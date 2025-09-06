@@ -1,0 +1,911 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HDT EDUCATION SERVICES - Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .role-selection {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .role-selection h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .role-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .role-btn {
+            padding: 15px 25px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .role-btn:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        .role-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .registration-form {
+            display: none;
+        }
+
+        .registration-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .input-with-validation {
+            position: relative;
+        }
+
+        .validation-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+        }
+
+        .validation-message {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .success {
+            color: #28a745;
+        }
+
+        .error {
+            color: #dc3545;
+        }
+
+        .file-input {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-display {
+            padding: 12px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            text-align: center;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-input:hover .file-input-display {
+            border-color: #667eea;
+            background: #e3f2fd;
+        }
+
+        .subjects-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .subject-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+
+        .class-levels-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .class-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #556bda 0%, #654292 100%);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .role-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👥 Join Our Educational Community</h1>
+            <p>Register as a Student, Teacher, or Community Member</p>
+        </div>
+
+        <div class="main-content">
+            <div class="message" id="registrationMessage"></div>
+
+            <div class="role-selection">
+                <h2>Choose Your Role</h2>
+                <div class="role-buttons">
+                    <button class="role-btn" onclick="selectRole('student')">
+                        🧑‍🎓 Student
+                    </button>
+                    <button class="role-btn" onclick="selectRole('teacher')">
+                        🧑‍🏫 Teacher
+                    </button>
+                    <button class="role-btn" onclick="selectRole('other')">
+                        🧑 Parent/Sponsor/Guest
+                    </button>
+                </div>
+            </div>
+
+            <!-- Student Registration Form -->
+            <div id="studentForm" class="registration-form">
+                <h3>🧑‍🎓 Student Registration</h3>
+                <form id="studentRegistrationForm">
+                    <input type="hidden" name="role" value="student">
+                    
+                    <div class="form-group">
+                        <label for="studentFullName">Full Name *</label>
+                        <input type="text" id="studentFullName" name="fullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentEmail">Email Address *</label>
+                        <div class="input-with-validation">
+                            <input type="email" id="studentEmail" name="email" required>
+                            <span class="validation-icon" id="studentEmailIcon"></span>
+                        </div>
+                        <div class="validation-message" id="studentEmailMessage"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentClassLevel">Class Level *</label>
+                        <select id="studentClassLevel" name="classLevel" required>
+                            <option value="">Select Class Level</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentPassword">Password *</label>
+                            <div class="input-with-validation">
+                                <input type="password" id="studentPassword" name="password" required>
+                                <span class="validation-icon" id="studentPasswordIcon"></span>
+                            </div>
+                            <div class="validation-message" id="studentPasswordMessage"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentConfirmPassword">Confirm Password *</label>
+                            <div class="input-with-validation">
+                                <input type="password" id="studentConfirmPassword" name="confirmPassword" required>
+                                <span class="validation-icon" id="studentConfirmPasswordIcon"></span>
+                            </div>
+                            <div class="validation-message" id="studentConfirmPasswordMessage"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="studentSubmitBtn">
+                        Register as Student
+                    </button>
+                </form>
+            </div>
+
+            <!-- Teacher Registration Form -->
+            <div id="teacherForm" class="registration-form">
+                <h3>🧑‍🏫 Teacher Registration</h3>
+                <form id="teacherRegistrationForm" enctype="multipart/form-data">
+                    <input type="hidden" name="role" value="teacher">
+                    
+                    <div class="form-group">
+                        <label for="teacherFullName">Full Name *</label>
+                        <input type="text" id="teacherFullName" name="fullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teacherEmail">Email Address *</label>
+                        <div class="input-with-validation">
+                            <input type="email" id="teacherEmail" name="email" required>
+                            <span class="validation-icon" id="teacherEmailIcon"></span>
+                        </div>
+                        <div class="validation-message" id="teacherEmailMessage"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teacherProfileImage">Profile Photo *</label>
+                        <div class="file-input">
+                            <input type="file" id="teacherProfileImage" name="profileImage" accept="image/*" required>
+                            <div class="file-input-display">
+                                <span id="teacherProfileImageText">📷 Click to upload profile photo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="teacherPhoneContact">Phone Contact *</label>
+                            <input type="tel" id="teacherPhoneContact" name="phoneContact" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherGender">Gender *</label>
+                            <select id="teacherGender" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teacherSchool">School *</label>
+                        <input type="text" id="teacherSchool" name="school" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Class Levels (Select multiple) *</label>
+                        <div class="class-levels-selection" id="teacherClassLevels">
+                            <!-- Class levels will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subjects (Maximum 4) *</label>
+                        <div class="subjects-selection" id="teacherSubjects">
+                            <!-- Subjects will be populated here -->
+                        </div>
+                        <div class="validation-message" id="teacherSubjectsMessage"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teacherCV">Upload CV *</label>
+                        <div class="file-input">
+                            <input type="file" id="teacherCV" name="cv" accept=".pdf,.doc,.docx,.txt" required>
+                            <div class="file-input-display">
+                                <span id="teacherCVText">📄 Click to upload CV</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="teacherPassword">Password *</label>
+                            <div class="input-with-validation">
+                                <input type="password" id="teacherPassword" name="password" required>
+                                <span class="validation-icon" id="teacherPasswordIcon"></span>
+                            </div>
+                            <div class="validation-message" id="teacherPasswordMessage"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherConfirmPassword">Confirm Password *</label>
+                            <div class="input-with-validation">
+                                <input type="password" id="teacherConfirmPassword" name="confirmPassword" required>
+                                <span class="validation-icon" id="teacherConfirmPasswordIcon"></span>
+                            </div>
+                            <div class="validation-message" id="teacherConfirmPasswordMessage"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="teacherSubmitBtn">
+                        Register as Teacher
+                    </button>
+                </form>
+            </div>
+
+            <!-- Other (Parent/Sponsor/Guest) Registration Form -->
+            <div id="otherForm" class="registration-form">
+                <h3>🧑 Parent/Sponsor/Guest Registration</h3>
+                <form id="otherRegistrationForm">
+                    <input type="hidden" name="role" value="other">
+                    
+                    <div class="form-group">
+                        <label for="otherFullName">Full Name *</label>
+                        <input type="text" id="otherFullName" name="fullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Method *</label>
+                        <div style="margin-bottom: 10px;">
+                            <input type="radio" id="contactEmail" name="contactMethod" value="email" checked>
+                            <label for="contactEmail" style="display: inline; margin-left: 5px;">Email Address</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="contactPhone" name="contactMethod" value="phone">
+                            <label for="contactPhone" style="display: inline; margin-left: 5px;">Phone Number</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="otherEmailGroup">
+                        <label for="otherEmail">Email Address *</label>
+                        <div class="input-with-validation">
+                            <input type="email" id="otherEmail" name="email">
+                            <span class="validation-icon" id="otherEmailIcon"></span>
+                        </div>
+                        <div class="validation-message" id="otherEmailMessage"></div>
+                    </div>
+
+                    <div class="form-group" id="otherPhoneGroup" style="display: none;">
+                        <label for="otherPhone">Phone Number *</label>
+                        <input type="tel" id="otherPhone" name="phoneNumber">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="otherPassword">Password *</label>
+                            <div class="input-with-validation">
+                                <input type="password" id="otherPassword" name="password" required>
+                                <span class="validation-icon" id="otherPasswordIcon"></span>
+                            </div>
+                            <div class="validation-message" id="otherPasswordMessage"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="otherConfirmPassword">Confirm Password *</label>
+                            <div class="input-with-validation">
+                                <input type="password" id="otherConfirmPassword" name="confirmPassword" required>
+                                <span class="validation-icon" id="otherConfirmPasswordIcon"></span>
+                            </div>
+                            <div class="validation-message" id="otherConfirmPasswordMessage"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="otherSubmitBtn">
+                        Register as Community Member
+                    </button>
+                </form>
+            </div>
+
+            <div class="login-link">
+                <p>Already have an account? <a href="ulogin.html">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" style="position:fixed;bottom:24px;right:24px;z-index:2000;background:#667eea;color:#fff;padding:10px 18px;border-radius:24px;text-decoration:none;font-weight:bold;box-shadow:0 2px 8px rgba(102,126,234,0.2);transition:background 0.2s;">Return Home</a>
+
+    <script>
+        let currentRole = '';
+        let classLevels = [];
+        let subjects = [];
+
+        // Load reference data on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadReferenceData();
+            setupFormValidation();
+            setupFileInputs();
+            setupContactMethodToggle();
+        });
+
+        async function loadReferenceData() {
+            try {
+                const response = await fetch('/api/reference-data');
+                const data = await response.json();
+                
+                classLevels = data.classLevels;
+                subjects = data.subjects;
+
+                populateClassLevels();
+                populateSubjects();
+
+            } catch (error) {
+                console.error('Failed to load reference data:', error);
+            }
+        }
+
+        function populateClassLevels() {
+            // Populate student class level dropdown
+            const studentSelect = document.getElementById('studentClassLevel');
+            classLevels.forEach(level => {
+                const option = document.createElement('option');
+                option.value = level;
+                option.textContent = level;
+                studentSelect.appendChild(option);
+            });
+
+            // Populate teacher class levels checkboxes
+            const teacherContainer = document.getElementById('teacherClassLevels');
+            classLevels.forEach(level => {
+                const div = document.createElement('div');
+                div.className = 'class-checkbox';
+                div.innerHTML = `
+                    <input type="checkbox" id="class_${level}" name="assignedClassLevels" value="${level}">
+                    <label for="class_${level}">${level}</label>
+                `;
+                teacherContainer.appendChild(div);
+            });
+        }
+
+        function populateSubjects() {
+            const container = document.getElementById('teacherSubjects');
+            subjects.forEach(subject => {
+                const div = document.createElement('div');
+                div.className = 'subject-checkbox';
+                div.innerHTML = `
+                    <input type="checkbox" id="subject_${subject}" name="assignedSubjects" value="${subject}">
+                    <label for="subject_${subject}">${subject}</label>
+                `;
+                container.appendChild(div);
+            });
+
+            // Add subject selection validation
+            setupSubjectValidation();
+        }
+
+        function selectRole(role) {
+            currentRole = role;
+            
+            // Update button states
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Show appropriate form
+            document.querySelectorAll('.registration-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            document.getElementById(role + 'Form').classList.add('active');
+        }
+
+        function setupFormValidation() {
+            // Email validation for all roles
+            setupEmailValidation('studentEmail', 'studentEmailIcon', 'studentEmailMessage');
+            setupEmailValidation('teacherEmail', 'teacherEmailIcon', 'teacherEmailMessage');
+            setupEmailValidation('otherEmail', 'otherEmailIcon', 'otherEmailMessage');
+
+            // Password validation for all roles
+            setupPasswordValidation('student');
+            setupPasswordValidation('teacher');
+            setupPasswordValidation('other');
+
+            // Form submissions
+            document.getElementById('studentRegistrationForm').addEventListener('submit', handleRegistration);
+            document.getElementById('teacherRegistrationForm').addEventListener('submit', handleRegistration);
+            document.getElementById('otherRegistrationForm').addEventListener('submit', handleRegistration);
+        }
+
+        async function setupEmailValidation(inputId, iconId, messageId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            const message = document.getElementById(messageId);
+
+            input.addEventListener('input', async () => {
+                const email = input.value.trim();
+                
+                if (!email) {
+                    icon.textContent = '';
+                    message.textContent = '';
+                    message.className = 'validation-message';
+                    return;
+                }
+
+                // Email format validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    icon.textContent = '❌';
+                    message.textContent = 'Please enter a valid email address';
+                    message.className = 'validation-message error';
+                    return;
+                }
+
+                try {
+                    // Check email uniqueness
+                    const response = await fetch('/api/users/check-email', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.available) {
+                        icon.textContent = '✅';
+                        message.textContent = 'Email is available';
+                        message.className = 'validation-message success';
+                    } else {
+                        icon.textContent = '❌';
+                        message.textContent = 'Email is already registered';
+                        message.className = 'validation-message error';
+                    }
+                } catch (error) {
+                    icon.textContent = '⚠️';
+                    message.textContent = 'Unable to verify email';
+                    message.className = 'validation-message error';
+                }
+            });
+        }
+
+        function setupPasswordValidation(role) {
+            const passwordInput = document.getElementById(`${role}Password`);
+            const confirmInput = document.getElementById(`${role}ConfirmPassword`);
+            const passwordIcon = document.getElementById(`${role}PasswordIcon`);
+            const confirmIcon = document.getElementById(`${role}ConfirmPasswordIcon`);
+            const passwordMessage = document.getElementById(`${role}PasswordMessage`);
+            const confirmMessage = document.getElementById(`${role}ConfirmPasswordMessage`);
+
+            passwordInput.addEventListener('input', () => {
+                const password = passwordInput.value;
+                
+                if (password.length === 0) {
+                    passwordIcon.textContent = '';
+                    passwordMessage.textContent = '';
+                    passwordMessage.className = 'validation-message';
+                } else if (password.length < 6) {
+                    passwordIcon.textContent = '❌';
+                    passwordMessage.textContent = 'Password must be at least 6 characters';
+                    passwordMessage.className = 'validation-message error';
+                } else {
+                    passwordIcon.textContent = '✅';
+                    passwordMessage.textContent = 'Password strength: Good';
+                    passwordMessage.className = 'validation-message success';
+                }
+
+                // Revalidate confirm password
+                if (confirmInput.value) {
+                    validateConfirmPassword();
+                }
+            });
+
+            confirmInput.addEventListener('input', validateConfirmPassword);
+
+            function validateConfirmPassword() {
+                const password = passwordInput.value;
+                const confirmPassword = confirmInput.value;
+
+                if (confirmPassword.length === 0) {
+                    confirmIcon.textContent = '';
+                    confirmMessage.textContent = '';
+                    confirmMessage.className = 'validation-message';
+                } else if (password !== confirmPassword) {
+                    confirmIcon.textContent = '❌';
+                    confirmMessage.textContent = 'Passwords do not match';
+                    confirmMessage.className = 'validation-message error';
+                } else {
+                    confirmIcon.textContent = '✅';
+                    confirmMessage.textContent = 'Passwords match';
+                    confirmMessage.className = 'validation-message success';
+                }
+            }
+        }
+
+        let subjectValidationSetup = false;
+        let subjectValidationHandler = null;
+
+        function setupSubjectValidation() {
+            // Prevent multiple setups
+            if (subjectValidationSetup) {
+                console.log('Subject validation already setup, skipping...');
+                return;
+            }
+            
+            console.log('Setting up subject validation...');
+            const checkboxes = document.querySelectorAll('input[name="assignedSubjects"]');
+            const message = document.getElementById('teacherSubjectsMessage');
+
+            if (!message) {
+                console.error('teacherSubjectsMessage element not found');
+                return;
+            }
+
+            // Define the handler function
+            subjectValidationHandler = () => {
+                const checkedBoxes = document.querySelectorAll('input[name="assignedSubjects"]:checked');
+                
+                // Clear previous message
+                message.textContent = '';
+                message.className = 'validation-message';
+                
+                if (checkedBoxes.length === 0) {
+                    message.textContent = 'Please select at least one subject';
+                    message.className = 'validation-message error';
+                } else if (checkedBoxes.length > 4) {
+                    // Find the checkbox that was just checked and uncheck it
+                    const allCheckboxes = document.querySelectorAll('input[name="assignedSubjects"]');
+                    for (let cb of allCheckboxes) {
+                        if (cb.checked && checkedBoxes.length > 4) {
+                            cb.checked = false;
+                            break;
+                        }
+                    }
+                    message.textContent = 'Teachers can be assigned maximum 4 subjects';
+                    message.className = 'validation-message error';
+                } else {
+                    message.textContent = `${checkedBoxes.length}/4 subjects selected`;
+                    message.className = 'validation-message success';
+                }
+            };
+
+            // Remove any existing event listeners first
+            checkboxes.forEach(checkbox => {
+                checkbox.removeEventListener('change', subjectValidationHandler);
+                checkbox.addEventListener('change', subjectValidationHandler);
+            });
+            
+            subjectValidationSetup = true;
+            console.log('Subject validation setup completed');
+        }
+
+        function setupFileInputs() {
+            // Profile image input
+            const profileImageInput = document.getElementById('teacherProfileImage');
+            const profileImageText = document.getElementById('teacherProfileImageText');
+
+            profileImageInput.addEventListener('change', () => {
+                if (profileImageInput.files.length > 0) {
+                    profileImageText.textContent = `📷 ${profileImageInput.files[0].name}`;
+                } else {
+                    profileImageText.textContent = '📷 Click to upload profile photo';
+                }
+            });
+
+            // CV input
+            const cvInput = document.getElementById('teacherCV');
+            const cvText = document.getElementById('teacherCVText');
+
+            cvInput.addEventListener('change', () => {
+                if (cvInput.files.length > 0) {
+                    cvText.textContent = `📄 ${cvInput.files[0].name}`;
+                } else {
+                    cvText.textContent = '📄 Click to upload CV';
+                }
+            });
+        }
+
+        function setupContactMethodToggle() {
+            const emailRadio = document.getElementById('contactEmail');
+            const phoneRadio = document.getElementById('contactPhone');
+            const emailGroup = document.getElementById('otherEmailGroup');
+            const phoneGroup = document.getElementById('otherPhoneGroup');
+            const emailInput = document.getElementById('otherEmail');
+            const phoneInput = document.getElementById('otherPhone');
+
+            emailRadio.addEventListener('change', () => {
+                if (emailRadio.checked) {
+                    emailGroup.style.display = 'block';
+                    phoneGroup.style.display = 'none';
+                    emailInput.required = true;
+                    phoneInput.required = false;
+                }
+            });
+
+            phoneRadio.addEventListener('change', () => {
+                if (phoneRadio.checked) {
+                    emailGroup.style.display = 'none';
+                    phoneGroup.style.display = 'block';
+                    emailInput.required = false;
+                    phoneInput.required = true;
+                }
+            });
+        }
+
+        async function handleRegistration(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('.submit-btn');
+            const message = document.getElementById('registrationMessage');
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Registering...';
+            
+            try {
+                const formData = new FormData(form);
+                
+                const response = await fetch('/api/users/register', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    message.className = 'message success';
+                    message.textContent = result.message;
+                    message.style.display = 'block';
+                    
+                    // Reset form
+                    form.reset();
+                    
+                    // Redirect after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'ulogin.html';
+                    }, 2000);
+                } else {
+                    message.className = 'message error';
+                    message.textContent = result.error || 'Registration failed';
+                    message.style.display = 'block';
+                }
+
+            } catch (error) {
+                message.className = 'message error';
+                message.textContent = 'Network error. Please try again.';
+                message.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        }
+    </script>
+    <!-- AI Support JavaScript -->
+    <script src="ai-support.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,1217 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HDT EDUCATION SERVICES - Teacher Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .approval-status {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .status-pending {
+            border-left: 5px solid #ffc107;
+            background: linear-gradient(135deg, #fff8e1 0%, #fff3c4 100%);
+        }
+
+        .status-approved {
+            border-left: 5px solid #28a745;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        }
+
+        .status-rejected {
+            border-left: 5px solid #dc3545;
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+        }
+
+        .status-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .status-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .status-message {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .admin-comments {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .comments-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            margin: 0 auto 20px;
+            background-size: cover;
+            background-position: center;
+            border: 4px solid #e9ecef;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .profile-role {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .profile-details {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .detail-value {
+            color: #6c757d;
+        }
+
+        .subjects-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .subject-tag {
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .teaching-stats {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .teaching-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-icon {
+            font-size: 24px;
+        }
+
+        .tool-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .tool-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .tool-btn.disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .recent-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .content-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6c757d;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .content-item:hover {
+            background: #f8f9fa;
+            border-color: #667eea;
+        }
+
+        .content-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .content-info {
+            flex: 1;
+        }
+
+        .content-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .content-meta {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .edit-profile-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .edit-profile-btn:hover {
+            background: #218838;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .teaching-tools {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .content-tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo" title="home of dynamic technologies">🎓 HDT EDUCATION SERVICES</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="QandA.html">Q&A</a></li>
+                <li><a href="sport.html">Sports</a></li>
+                <li><a href="paper.html">Papers</a></li>
+                <li><a href="pvideo.html">Videos</a></li>
+                <li><a href="chat.html">💬 Chat</a></li>
+            </ul>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <span id="userName"></span>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Approval Status Section -->
+        <div class="approval-status" id="approvalStatus" style="display: none;">
+            <div class="status-icon" id="statusIcon"></div>
+            <div class="status-title" id="statusTitle"></div>
+            <div class="status-message" id="statusMessage"></div>
+            <div class="admin-comments" id="adminComments" style="display: none;">
+                <div class="comments-title">📝 Admin Comments:</div>
+                <div id="commentsText"></div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="profile-card">
+                <div class="profile-avatar" id="profileAvatar" style="position:relative; cursor:pointer;">🧑‍🏫
+                    <span id="editAvatarIcon" style="position:absolute; bottom:8px; right:8px; background:#fff; border-radius:50%; padding:4px; box-shadow:0 1px 4px #0002; cursor:pointer;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z"/></svg>
+                    </span>
+                    <input type="file" id="avatarInput" accept="image/*" style="display:none;" />
+                </div>
+                <div class="profile-name" id="profileName">Loading...</div>
+                <div class="profile-role">Teacher</div>
+                
+                <div class="profile-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Email:</span>
+                        <span class="detail-value" id="profileEmail">Loading...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Phone:</span>
+                        <span class="detail-value" id="profilePhone">Loading...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">School:</span>
+                        <span class="detail-value" id="profileSchool">Loading...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Gender:</span>
+                        <span class="detail-value" id="profileGender">Loading...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Subjects:</span>
+                        <div class="detail-value">
+                            <div class="subjects-list" id="profileSubjects">Loading...</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Class Levels:</span>
+                        <span class="detail-value" id="profileClasses">Loading...</span>
+                    </div>
+                </div>
+
+                                <button class="edit-profile-btn" onclick="openEditProfile()">
+                                        ✏️ Edit Profile
+                                </button>
+
+                                <!-- Edit Profile Modal -->
+                                <div id="editProfileModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:#0007; z-index:3000; align-items:center; justify-content:center;">
+                                    <div style="background:#fff; border-radius:12px; max-width:420px; width:92vw; padding:24px; position:relative;">
+                                        <button onclick="closeEditProfile()" style="position:absolute; top:8px; right:12px; background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+                                        <h2 style="margin-bottom:12px; color:#667eea;">Edit Profile</h2>
+                                        <form id="editProfileForm">
+                                            <label>Full Name:<br><input type="text" id="editFullName" style="width:100%;margin-bottom:8px;"></label>
+                                            <label>Email:<br><input type="email" id="editEmail" style="width:100%;margin-bottom:8px;"></label>
+                                            <label>Phone:<br><input type="text" id="editPhone" style="width:100%;margin-bottom:8px;"></label>
+                                            <label>School:<br><input type="text" id="editSchool" style="width:100%;margin-bottom:8px;"></label>
+                                            <label>Gender:<br>
+                                                <select id="editGender" style="width:100%;margin-bottom:8px;">
+                                                    <option value="">Select</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </label>
+                                            <button type="submit" class="edit-profile-btn" style="width:100%;margin-top:6px;">Save Changes</button>
+                                        </form>
+                                    </div>
+                                </div>
+            </div>
+
+            <div class="teaching-stats">
+                <div class="stats-title">📊 Teaching Statistics</div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalStudents">0</div>
+                        <div class="stat-label">Students Reached</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="contentCreated">0</div>
+                        <div class="stat-label">Content Created</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="questionsAnswered">0</div>
+                        <div class="stat-label">Questions Answered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="teachingDays">0</div>
+                        <div class="stat-label">Days Teaching</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="teaching-tools">
+            <div class="tool-card">
+                <div class="tool-title">
+                    <span class="tool-icon">❓</span>
+                    Manage Questions & Answers
+                </div>
+                <div class="tool-description">
+                    Create educational questions, provide detailed answers, and help students learn effectively.
+                </div>
+                <a href="adQandA.html" class="tool-btn" id="qaToolBtn">
+                    Access Q&A Management
+                </a>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-title">
+                    <span class="tool-icon">🎥</span>
+                    Educational Videos
+                </div>
+                <div class="tool-description">
+                    Upload and manage educational videos for your subjects and class levels.
+                </div>
+                <a href="advideo.html" class="tool-btn" id="videoToolBtn">
+                    Manage Videos
+                </a>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-title">
+                    <span class="tool-icon">📄</span>
+                    Exam Papers
+                </div>
+                <div class="tool-description">
+                    Upload examination papers, past papers, and study materials for students.
+                </div>
+                <a href="adpaper.html" class="tool-btn" id="paperToolBtn">
+                    Manage Papers
+                </a>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-title">
+                    <span class="tool-icon">📚</span>
+                    Books & Resources
+                </div>
+                <div class="tool-description">
+                    Share textbooks, reference materials, and additional learning resources.
+                </div>
+                <a href="adbook.html" class="tool-btn" id="bookToolBtn">
+                    Manage Books
+                </a>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-title">
+                    <span class="tool-icon">⚽</span>
+                    Sports & Activities
+                </div>
+                <div class="tool-description">
+                    Organize sports events, extracurricular activities, and school competitions.
+                </div>
+                <a href="./adsport.html" class="tool-btn" id="sportsToolBtn">
+                    Manage Sports
+                </a>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-title">
+                    <span class="tool-icon">📈</span>
+                    Student Progress
+                </div>
+                <div class="tool-description">
+                    Track student engagement, performance, and learning progress across subjects.
+                </div>
+                <button class="tool-btn disabled" id="progressToolBtn">
+                    Coming Soon
+                </button>
+            </div>
+        </div>
+
+        <div class="recent-content">
+            <div class="content-title">
+                <span>📚</span>
+                Recent Teaching Activity
+            </div>
+            
+            <div class="content-tabs">
+                <button class="tab-btn active" onclick="switchTab('questions')">Questions</button>
+                <button class="tab-btn" onclick="switchTab('videos')">Videos</button>
+                <button class="tab-btn" onclick="switchTab('papers')">Papers</button>
+                <button class="tab-btn" onclick="switchTab('books')">Books</button>
+            </div>
+
+            <div class="tab-content active" id="questions-content">
+                <div id="recentQuestions">
+                    <div class="content-item">
+                        <div class="content-icon">❓</div>
+                        <div class="content-info">
+                            <div class="content-name">Loading questions...</div>
+                            <div class="content-meta">Please wait</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="videos-content">
+                <div id="recentVideos">
+                    <div class="content-item">
+                        <div class="content-icon">🎥</div>
+                        <div class="content-info">
+                            <div class="content-name">Loading videos...</div>
+                            <div class="content-meta">Please wait</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="papers-content">
+                <div id="recentPapers">
+                    <div class="content-item">
+                        <div class="content-icon">📄</div>
+                        <div class="content-info">
+                            <div class="content-name">Loading papers...</div>
+                            <div class="content-meta">Please wait</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="books-content">
+                <div id="recentBooks">
+                    <div class="content-item">
+                        <div class="content-icon">📚</div>
+                        <div class="content-info">
+                            <div class="content-name">Loading books...</div>
+                            <div class="content-meta">Please wait</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" style="position:fixed;bottom:24px;right:24px;z-index:2000;background:#667eea;color:#fff;padding:10px 18px;border-radius:24px;text-decoration:none;font-weight:bold;box-shadow:0 2px 8px rgba(102,126,234,0.2);transition:background 0.2s;">Return Home</a>
+
+    <script>
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkAuthentication();
+            await loadUserProfile();
+            await loadTeachingContent();
+        });
+
+        async function checkAuthentication() {
+            try {
+                const response = await fetch('/api/users/check-session', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (!response.ok) {
+                    window.location.href = 'ulogin.html';
+                    return;
+                }
+
+                const data = await response.json();
+                currentUser = data.user;
+
+                // Check if user is teacher
+                if (currentUser.role !== 'teacher') {
+                    // Redirect to appropriate dashboard
+                    if (currentUser.role === 'student') {
+                        window.location.href = 'sprofile.html';
+                    } else if (currentUser.role === 'other') {
+                        window.location.href = 'oprofile.html';
+                    } else {
+                        window.location.href = 'ulogin.html';
+                    }
+                    return;
+                }
+
+            } catch (error) {
+                console.error('Authentication check failed:', error);
+                window.location.href = 'ulogin.html';
+            }
+        }
+
+        async function loadUserProfile() {
+            if (!currentUser) return;
+
+            // Update header
+            document.getElementById('userName').textContent = currentUser.fullName;
+            
+            // Set avatar
+            const userAvatar = document.getElementById('userAvatar');
+            const profileAvatar = document.getElementById('profileAvatar');
+            
+            if (currentUser.profileImage) {
+                const url = (currentUser.profileImage.startsWith('http://') || currentUser.profileImage.startsWith('https://')) ? currentUser.profileImage : `/${currentUser.profileImage}`;
+                userAvatar.style.backgroundImage = `url(${url})`;
+                profileAvatar.style.backgroundImage = `url(${url})`;
+                userAvatar.textContent = '';
+                profileAvatar.textContent = '';
+            } else {
+                userAvatar.textContent = currentUser.fullName.charAt(0).toUpperCase();
+                profileAvatar.textContent = currentUser.fullName.charAt(0).toUpperCase();
+            }
+
+            // Update profile section
+            document.getElementById('profileName').textContent = currentUser.fullName;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('profilePhone').textContent = currentUser.phoneContact || 'Not provided';
+            document.getElementById('profileSchool').textContent = currentUser.school || 'Not specified';
+            document.getElementById('profileGender').textContent = currentUser.gender || 'Not specified';
+            
+            // Display subjects
+            const subjectsContainer = document.getElementById('profileSubjects');
+            if (currentUser.assignedSubjects && currentUser.assignedSubjects.length > 0) {
+                subjectsContainer.innerHTML = currentUser.assignedSubjects.map(subject => 
+                    `<span class="subject-tag">${subject}</span>`
+                ).join('');
+            } else {
+                subjectsContainer.innerHTML = '<span style="color: #999;">No subjects assigned</span>';
+            }
+            
+            // Display class levels
+            const classesContainer = document.getElementById('profileClasses');
+            if (currentUser.assignedClassLevels && currentUser.assignedClassLevels.length > 0) {
+                classesContainer.textContent = currentUser.assignedClassLevels.join(', ');
+            } else {
+                classesContainer.textContent = 'No classes assigned';
+            }
+
+            // Show approval status
+            showApprovalStatus();
+            
+            // Enable/disable tools based on approval status
+            updateToolAccess();
+        }
+
+        function showApprovalStatus() {
+            const statusSection = document.getElementById('approvalStatus');
+            const statusIcon = document.getElementById('statusIcon');
+            const statusTitle = document.getElementById('statusTitle');
+            const statusMessage = document.getElementById('statusMessage');
+            const adminComments = document.getElementById('adminComments');
+            const commentsText = document.getElementById('commentsText');
+
+            statusSection.style.display = 'block';
+
+            if (currentUser.status === 'approved') {
+                statusSection.className = 'approval-status status-approved';
+                statusIcon.textContent = '✅';
+                statusTitle.textContent = 'Account Approved';
+                statusMessage.textContent = 'Your teacher account has been approved! You now have full access to all teaching tools.';
+            } else if (currentUser.status === 'rejected') {
+                statusSection.className = 'approval-status status-rejected';
+                statusIcon.textContent = '❌';
+                statusTitle.textContent = 'Account Not Approved';
+                statusMessage.textContent = 'Your teacher account application was not approved. Please contact the administration for more information.';
+            } else {
+                statusSection.className = 'approval-status status-pending';
+                statusIcon.textContent = '⏳';
+                statusTitle.textContent = 'Approval Pending';
+                statusMessage.textContent = 'Your teacher account is under review. You will receive an email notification once approved.';
+            }
+
+            // Show admin comments if available
+            if (currentUser.adminComments && currentUser.adminComments.length > 0) {
+                adminComments.style.display = 'block';
+                commentsText.innerHTML = currentUser.adminComments.map(comment => 
+                    `<div style="margin-bottom: 10px; padding: 8px; background: white; border-radius: 5px;">
+                        <strong>${comment.date ? new Date(comment.date).toLocaleDateString() : 'Recent'}:</strong> 
+                        ${comment.message || comment}
+                    </div>`
+                ).join('');
+            }
+        }
+
+        function updateToolAccess() {
+            const toolButtons = ['qaToolBtn', 'videoToolBtn', 'paperToolBtn', 'bookToolBtn', 'sportsToolBtn'];
+            
+            toolButtons.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (currentUser.status !== 'approved') {
+                    btn.className = 'tool-btn disabled';
+                    btn.textContent = 'Approval Required';
+                    btn.onclick = (e) => {
+                        e.preventDefault();
+                        alert('Your account needs admin approval before you can access teaching tools.');
+                    };
+                }
+            });
+        }
+
+        async function loadTeachingContent() {
+            if (currentUser.status !== 'approved') {
+                // Don't load content for unapproved teachers
+                return;
+            }
+
+            try {
+                // Load recent questions, videos, papers, books
+                await Promise.all([
+                    loadRecentQuestions(),
+                    loadRecentVideos(),
+                    loadRecentPapers(),
+                    loadRecentBooks()
+                ]);
+                
+                // Load statistics (mock data for now)
+                loadTeachingStats();
+
+            } catch (error) {
+                console.error('Failed to load teaching content:', error);
+            }
+        }
+
+        async function loadRecentQuestions() {
+            try {
+                const response = await fetch('/api/questions?limit=3');
+                const questions = await response.json();
+                
+                const container = document.getElementById('recentQuestions');
+                
+                if (questions.length === 0) {
+                    container.innerHTML = `
+                        <div class="content-item">
+                            <div class="content-icon">❓</div>
+                            <div class="content-info">
+                                <div class="content-name">No questions yet</div>
+                                <div class="content-meta">Start creating educational content</div>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = questions.map(question => `
+                    <div class="content-item">
+                        <div class="content-icon">📝</div>
+                        <div class="content-info">
+                            <div class="content-name">${question.questionText || question.question || 'Question'}</div>
+                            <div class="content-meta">${question.subject} • ${question.classLevel}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Failed to load questions:', error);
+            }
+        }
+
+        async function loadRecentVideos() {
+            try {
+                const response = await fetch('/api/videos?limit=3');
+                const videos = await response.json();
+                
+                const container = document.getElementById('recentVideos');
+                
+                if (videos.length === 0) {
+                    container.innerHTML = `
+                        <div class="content-item">
+                            <div class="content-icon">🎥</div>
+                            <div class="content-info">
+                                <div class="content-name">No videos yet</div>
+                                <div class="content-meta">Upload educational videos</div>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = videos.map(video => `
+                    <div class="content-item">
+                        <div class="content-icon">▶️</div>
+                        <div class="content-info">
+                            <div class="content-name">${video.title}</div>
+                            <div class="content-meta">${video.subject} • ${video.classLevel}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Failed to load videos:', error);
+            }
+        }
+
+        async function loadRecentPapers() {
+            try {
+                const response = await fetch('/api/papers?limit=3');
+                const papers = await response.json();
+                
+                const container = document.getElementById('recentPapers');
+                
+                if (papers.length === 0) {
+                    container.innerHTML = `
+                        <div class="content-item">
+                            <div class="content-icon">📄</div>
+                            <div class="content-info">
+                                <div class="content-name">No papers yet</div>
+                                <div class="content-meta">Upload exam papers</div>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = papers.map(paper => `
+                    <div class="content-item">
+                        <div class="content-icon">📋</div>
+                        <div class="content-info">
+                            <div class="content-name">${paper.title}</div>
+                            <div class="content-meta">${paper.subject} • ${paper.examType}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Failed to load papers:', error);
+            }
+        }
+
+        async function loadRecentBooks() {
+            try {
+                const response = await fetch('/api/books?limit=3');
+                const books = await response.json();
+                
+                const container = document.getElementById('recentBooks');
+                
+                if (books.length === 0) {
+                    container.innerHTML = `
+                        <div class="content-item">
+                            <div class="content-icon">📚</div>
+                            <div class="content-info">
+                                <div class="content-name">No books yet</div>
+                                <div class="content-meta">Share learning resources</div>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = books.map(book => `
+                    <div class="content-item">
+                        <div class="content-icon">📖</div>
+                        <div class="content-info">
+                            <div class="content-name">${book.title}</div>
+                            <div class="content-meta">${book.subject} • ${book.classLevel}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Failed to load books:', error);
+            }
+        }
+
+        function loadTeachingStats() {
+            // Mock statistics for demonstration
+            // In a real application, these would come from actual teaching activity tracking
+            document.getElementById('totalStudents').textContent = Math.floor(Math.random() * 200) + 50;
+            document.getElementById('contentCreated').textContent = Math.floor(Math.random() * 100) + 10;
+            document.getElementById('questionsAnswered').textContent = Math.floor(Math.random() * 500) + 25;
+            
+            if (currentUser.createdAt) {
+                const joinDate = new Date(currentUser.createdAt);
+                const today = new Date();
+                const daysDiff = Math.floor((today - joinDate) / (1000 * 60 * 60 * 24));
+                document.getElementById('teachingDays').textContent = daysDiff;
+            } else {
+                document.getElementById('teachingDays').textContent = '0';
+            }
+        }
+
+        function switchTab(tabName) {
+            // Remove active class from all tabs and content
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-content').classList.add('active');
+        }
+
+                function openEditProfile() {
+                        // Fill modal fields with current user info
+                        document.getElementById('editFullName').value = currentUser.fullName || '';
+                        document.getElementById('editEmail').value = currentUser.email || '';
+                        document.getElementById('editPhone').value = currentUser.phoneContact || '';
+                        document.getElementById('editSchool').value = currentUser.school || '';
+                        document.getElementById('editGender').value = currentUser.gender || '';
+                        document.getElementById('editProfileModal').style.display = 'flex';
+                }
+
+                function closeEditProfile() {
+                        document.getElementById('editProfileModal').style.display = 'none';
+                }
+
+                // Handle profile form submit
+                document.addEventListener('DOMContentLoaded', function() {
+                    const form = document.getElementById('editProfileForm');
+                    if(form) {
+                        form.onsubmit = async function(e) {
+                            e.preventDefault();
+                            const updated = {
+                                fullName: document.getElementById('editFullName').value,
+                                email: document.getElementById('editEmail').value,
+                                phoneContact: document.getElementById('editPhone').value,
+                                school: document.getElementById('editSchool').value,
+                                gender: document.getElementById('editGender').value
+                            };
+                            try {
+                                const res = await fetch('/api/users/profile', {
+                                    method: 'PUT',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    credentials: 'include',
+                                    body: JSON.stringify(updated)
+                                });
+                                if(res.ok) {
+                                    closeEditProfile();
+                                    await checkAuthentication();
+                                    await loadUserProfile();
+                                    alert('Profile updated successfully!');
+                                } else {
+                                    let msg = 'Failed to update profile.';
+                                    try {
+                                        const data = await res.json();
+                                        if(data && data.error) msg = data.error;
+                                    } catch(e) {}
+                                    alert(msg);
+                                }
+                            } catch(err) {
+                                alert('Error updating profile: ' + (err.message || err));
+                            }
+                        }
+                    }
+                });
+
+                // Avatar image upload logic
+                document.addEventListener('DOMContentLoaded', function() {
+                    const avatarInput = document.getElementById('avatarInput');
+                    const editAvatarIcon = document.getElementById('editAvatarIcon');
+                    const profileAvatar = document.getElementById('profileAvatar');
+                    if(editAvatarIcon && avatarInput && profileAvatar) {
+                        editAvatarIcon.onclick = function(e) {
+                            e.stopPropagation();
+                            avatarInput.click();
+                        };
+                        profileAvatar.onclick = function(e) {
+                            avatarInput.click();
+                        };
+                        avatarInput.onchange = async function() {
+                            if(avatarInput.files && avatarInput.files[0]) {
+                                const formData = new FormData();
+                                formData.append('profileImage', avatarInput.files[0]);
+                                try {
+                                    const res = await fetch('/api/users/profile', {
+                                        method: 'PUT',
+                                        credentials: 'include',
+                                        body: formData
+                                    });
+                                    if(res.ok) {
+                                        await checkAuthentication();
+                                        await loadUserProfile();
+                                        alert('Profile image updated!');
+                                    } else {
+                                        let msg = 'Failed to update image.';
+                                        try {
+                                            const data = await res.json();
+                                            if(data && data.error) msg = data.error;
+                                        } catch(e) {}
+                                        alert(msg);
+                                    }
+                                } catch(err) {
+                                    alert('Error updating image: ' + (err.message || err));
+                                }
+                            }
+                        }
+                    }
+                });
+
+        async function logout() {
+            try {
+                const response = await fetch('/api/users/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    window.location.href = 'ulogin.html';
+                } else {
+                    console.error('Logout failed');
+                    window.location.href = 'ulogin.html';
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+                window.location.href = 'ulogin.html';
+            }
+        }
+    </script>
+    <!-- AI Support JavaScript -->
+    <script src="ai-support.js"></script>
+</body>
+</html>
+

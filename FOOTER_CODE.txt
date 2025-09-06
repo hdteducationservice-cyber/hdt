@@ -1,0 +1,319 @@
+HDT EDUCATION SERVICES - FOOTER STATUS UPDATE
+=====================================
+
+✅ FILES WITH FOOTER COMPLETED:
+- index.html (✅ Done)
+- books.html (✅ Done) 
+- pvideo.html (✅ Done)
+
+📝 FILES STILL NEED FOOTER (19 remaining):
+- adannouncements.html
+- adbook.html
+- admin.html
+- adminlog.html
+- adminregister.html
+- adpaper.html
+- adQandA.html
+- adsport.html
+- adusers.html
+- advideo.html
+- chat.html
+- oprofile.html
+- paper.html
+- QandA.html
+- see.html
+- sport.html
+- sprofile.html
+- tprofile.html
+- ulogin.html
+- uregister.html
+
+COMPREHENSIVE FOOTER CODE FOR ALL HDT EDUCATION SERVICES PAGES
+================================================================
+
+Instructions: Copy and paste the CSS styles and HTML footer code below to all remaining HTML pages.
+
+==== CSS STYLES (Add to your <style> section BEFORE </style> tag) ====
+
+/* Footer Styles */
+.footer {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 60px 40px 30px;
+    text-align: left;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.footer-section h3 {
+    color: #3498db;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-section h4 {
+    color: #ecf0f1;
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.footer-section p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+    color: #bdc3c7;
+}
+
+.footer-section .motto {
+    font-style: italic;
+    font-size: 16px;
+    color: #f39c12;
+    font-weight: 500;
+    margin: 15px 0;
+}
+
+.footer-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ecf0f1;
+    transition: color 0.3s ease;
+}
+
+.footer-contact-item:hover {
+    color: #3498db;
+}
+
+.footer-contact-item span:first-child {
+    width: 20px;
+    text-align: center;
+}
+
+.footer-bottom {
+    border-top: 1px solid #34495e;
+    padding-top: 25px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    margin-bottom: 8px;
+    color: #95a5a6;
+}
+
+.developer-credit {
+    background: rgba(52, 73, 94, 0.3);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border-left: 4px solid #e74c3c;
+}
+
+.developer-credit h4 {
+    color: #e74c3c;
+    margin-bottom: 8px;
+}
+
+.developer-credit p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 40px 20px 20px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer-contact-info {
+        gap: 10px;
+    }
+}
+
+==== HTML FOOTER (Add before closing </div> and </body> tags) ====
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-content">
+                <!-- School Information Section -->
+                <div class="footer-section">
+                    <h3><img src="WhatsApp Image 2025-08-08 at 11.41.10_148b0047.jpg" alt="HDT Education Logo" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 2px solid #3498db; box-shadow: 0 2px 6px rgba(0,0,0,0.2); vertical-align: middle; margin-right: 10px;"> HDT EDUCATION SERVICES</h3>
+                    <p class="motto">"Empowering minds, building futures, creating leaders of tomorrow."</p>
+                    <p>HDT EDUCATION SERVICES is committed to providing excellence in education through innovative teaching methods, quality learning resources, and comprehensive student development programs.</p>
+                    
+                    <h4>📞 Contact Information</h4>
+                    <div class="footer-contact-info">
+                        <div class="footer-contact-item">
+                            <span>📧</span>
+                            <span>info@ourladyschool.ac.tz</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>📞</span>
+                            <span>+255 123 456 789</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>📍</span>
+                            <span>Uhuru Street, Ilala District, Dar es Salaam, Tanzania</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>🕐</span>
+                            <span>Mon-Fri: 7:00 AM - 4:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links Section -->
+                <div class="footer-section">
+                    <h3>🔗 Quick Links</h3>
+                    <div class="footer-contact-info">
+                        <div class="footer-contact-item">
+                            <span>🏠</span>
+                            <a href="index.html" style="color: #bdc3c7; text-decoration: none;">Home</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>📚</span>
+                            <a href="books.html" style="color: #bdc3c7; text-decoration: none;">Books Library</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>🎬</span>
+                            <a href="pvideo.html" style="color: #bdc3c7; text-decoration: none;">Educational Videos</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>📄</span>
+                            <a href="paper.html" style="color: #bdc3c7; text-decoration: none;">Past Papers</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>❓</span>
+                            <a href="QandA.html" style="color: #bdc3c7; text-decoration: none;">Questions & Answers</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>🏆</span>
+                            <a href="sport.html" style="color: #bdc3c7; text-decoration: none;">Sports & Activities</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>💬</span>
+                            <a href="ulogin.html?redirect=chat" style="color: #bdc3c7; text-decoration: none;">Community Chat</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Administrative Links -->
+                <div class="footer-section">
+                    <h3>👨‍💼 Administration</h3>
+                    <div class="footer-contact-info">
+                        <div class="footer-contact-item">
+                            <span>🔐</span>
+                            <a href="adminlog.html" style="color: #bdc3c7; text-decoration: none;">Admin Login</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>👤</span>
+                            <a href="ulogin.html" style="color: #bdc3c7; text-decoration: none;">Student/Teacher Login</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>📝</span>
+                            <a href="uregister.html" style="color: #bdc3c7; text-decoration: none;">Register Account</a>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 20px;">🌐 Follow Us</h4>
+                    <div class="footer-contact-info">
+                        <div class="footer-contact-item">
+                            <span>📘</span>
+                            <span>Facebook: HDT EDUCATION SERVICES</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>📸</span>
+                            <span>Instagram: @ourladyschool_tz</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>🐦</span>
+                            <span>Twitter: @ourladyschool</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 HDT EDUCATION SERVICES. All rights reserved.</p>
+                <p>Empowering minds, building futures, creating leaders of tomorrow.</p>
+                
+                <!-- Developer Credit -->
+                <div class="developer-credit">
+                    <h4>💻 Website Development</h4>
+                    <p><strong>Developer:</strong> Leo Tito Mwahalende</p>
+                    <p><strong>Education:</strong> BSc in Electronics Science and Communication</p>
+                    <p><strong>University:</strong> University of Dar es Salaam (2022–2025)</p>
+                    <p><strong>Contact:</strong> leomwahalende@gmail.com</p>
+                    <p><strong>Location:</strong> Dar es Salaam, Tanzania</p>
+                </div>
+            </div>
+        </div>
+
+==== FILES TO UPDATE ====
+
+You need to add this footer to all these files:
+- adannouncements.html
+- adbook.html
+- admin.html
+- adminlog.html
+- adminregister.html
+- adpaper.html
+- adQandA.html
+- adsport.html
+- adusers.html
+- advideo.html
+- chat.html
+- oprofile.html
+- paper.html
+- pvideo.html
+- QandA.html
+- see.html
+- sport.html
+- sprofile.html
+- tprofile.html
+- ulogin.html
+- uregister.html
+
+==== INSTRUCTIONS FOR IMPLEMENTATION ====
+
+For each HTML file:
+1. Open the file in your text editor
+2. Find the closing </style> tag and add the CSS footer styles BEFORE it
+3. Find the end of your main content (usually before the closing </div> and </body> tags)
+4. Add the HTML footer code there
+5. Save the file
+
+The footer includes:
+✅ Complete school information
+✅ Your developer credentials (Leo Tito Mwahalende)
+✅ Contact details
+✅ Navigation links
+✅ Social media information
+✅ Professional styling
+✅ Mobile responsiveness
+✅ Copyright information
+
+This creates a consistent, professional footer across your entire HDT EDUCATION SERVICES website!
