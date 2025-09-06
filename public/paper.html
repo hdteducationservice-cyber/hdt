@@ -679,9 +679,6 @@
                                             </div>
                                             <div class="paper-actions">
                                                 <a href="/api/papers/${paper._id}/view" target="_blank" class="action-btn view-btn">👁️ View Paper</a>
-                                                <a href="${paper.paperFile && (paper.paperFile.startsWith('http://') || paper.paperFile.startsWith('https://')) ? paper.paperFile : `/${paper.paperFile}`}" download="${paper.fileName}" class="action-btn download-btn">
-                                                    💾 Download
-                                                </a>
                                             </div>
                                         </div>
                                     </div>
