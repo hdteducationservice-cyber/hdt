@@ -734,11 +734,8 @@
                                 <strong>Format:</strong> ${getFileExtension(book.fileName)}
                             </div>
                             <div class="book-actions">
-                                <a href="/api/books/${book._1d}/read" target="_blank" class="action-btn read-btn">
+                                <a href="/api/books/${book._id}/read" target="_blank" class="action-btn read-btn">
                                     📖 Read Now
-                                </a>
-                                <a href="${(book.bookFile && (book.bookFile.startsWith('http://') || book.bookFile.startsWith('https://'))) ? book.bookFile : `/${book.bookFile}`}" download="${book.fileName}" class="action-btn download-btn">
-                                    💾 Download
                                 </a>
                             </div>
                         </div>
